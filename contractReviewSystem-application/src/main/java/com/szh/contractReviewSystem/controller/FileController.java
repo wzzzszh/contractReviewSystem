@@ -1,7 +1,7 @@
-package com.szh.parseModule.controller;
+package com.szh.contractReviewSystem.controller;
 
-import com.szh.parseModule.common.Result;
-import com.szh.parseModule.utils.FileUtils;
+import com.szh.contractReviewSystem.common.Result;
+import com.szh.contractReviewSystem.utils.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.szh.parseModule.exception;
+package com.szh.contractReviewSystem.exception;
 
 /**
  * 业务异常枚举类 */

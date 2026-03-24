@@ -1,8 +1,8 @@
-package com.szh.parseModule.controller;
+package com.szh.contractReviewSystem.controller;
 
-import com.szh.parseModule.common.PageResult;
-import com.szh.parseModule.common.Result;
-import com.szh.parseModule.exception.CustomException;
+import com.szh.contractReviewSystem.common.PageResult;
+import com.szh.contractReviewSystem.common.Result;
+import com.szh.contractReviewSystem.exception.CustomException;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

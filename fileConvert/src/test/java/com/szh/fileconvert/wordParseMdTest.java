@@ -1,6 +1,6 @@
 package com.szh.fileconvert;
 
-import com.szh.parseModule.utils.FileUtils;
+import com.szh.contractReviewSystem.utils.FileUtils;
 import com.szh.fileconvert.base.DocumentToMarkdownConverter;
 import com.szh.fileconvert.base.MarkdownResult;
 import com.szh.fileconvert.base.ParseContext;

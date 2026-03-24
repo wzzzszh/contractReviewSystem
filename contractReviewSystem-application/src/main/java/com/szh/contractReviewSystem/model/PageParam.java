@@ -1,4 +1,4 @@
-package com.szh.parseModule.model;
+package com.szh.contractReviewSystem.model;
 
 /**
  * 分页查询参数

@@ -1,6 +1,6 @@
-package com.szh.parseModule.aspect;
+package com.szh.contractReviewSystem.aspect;
 
-import com.szh.parseModule.utils.HttpUtils;
+import com.szh.contractReviewSystem.utils.HttpUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;

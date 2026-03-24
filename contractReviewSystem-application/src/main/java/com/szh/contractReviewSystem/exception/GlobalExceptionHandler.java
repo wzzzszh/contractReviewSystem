@@ -1,6 +1,6 @@
-package com.szh.parseModule.exception;
+package com.szh.contractReviewSystem.exception;
 
-import com.szh.parseModule.common.Result;
+import com.szh.contractReviewSystem.common.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;

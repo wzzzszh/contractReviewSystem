@@ -1,7 +1,7 @@
-package com.szh.parseModule.aspect;
+package com.szh.contractReviewSystem.aspect;
 
-import com.szh.parseModule.annotation.RequiresPermissions;
-import com.szh.parseModule.exception.CustomException;
+import com.szh.contractReviewSystem.annotation.RequiresPermissions;
+import com.szh.contractReviewSystem.exception.CustomException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -27,7 +27,7 @@ public class PermissionAspect {
     /**
      * 配置织入点
      */
-    @Pointcut("@annotation(com.szh.parseModule.annotation.RequiresPermissions)")
+    @Pointcut("@annotation(com.szh.contractReviewSystem.annotation.RequiresPermissions)")
     public void permissionPointCut() {
     }
     

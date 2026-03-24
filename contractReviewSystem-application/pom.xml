@@ -11,7 +11,7 @@
 
     <artifactId>contractReviewSystem-application</artifactId>
     <name>contractReviewSystem-application</name>
-    <description>Application logic for the parseModule service</description>
+    <description>Application logic for the contractReviewSystem service</description>
 
     <dependencies>
         <dependency>

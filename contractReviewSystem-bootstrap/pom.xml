@@ -9,9 +9,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>parseModule-bootstrap</artifactId>
-    <name>parseModule-bootstrap</name>
-    <description>Dedicated launcher for the parseModule application</description>
+    <artifactId>contractReviewSystem-bootstrap</artifactId>
+    <name>contractReviewSystem-bootstrap</name>
+    <description>Dedicated launcher for the contractReviewSystem application</description>
 
     <dependencies>
         <dependency>
