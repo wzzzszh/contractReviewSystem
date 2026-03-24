@@ -1,4 +1,4 @@
-package com.szh.parseModule.annotation;
+package com.szh.contractReviewSystem.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

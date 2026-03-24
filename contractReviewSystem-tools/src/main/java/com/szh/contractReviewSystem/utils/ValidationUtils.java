@@ -1,4 +1,4 @@
-package com.szh.parseModule.utils;
+package com.szh.contractReviewSystem.utils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

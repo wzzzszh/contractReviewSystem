@@ -1,4 +1,4 @@
-package com.szh.parseModule.config;
+package com.szh.contractReviewSystem.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

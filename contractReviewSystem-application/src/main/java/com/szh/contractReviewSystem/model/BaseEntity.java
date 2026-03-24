@@ -1,4 +1,4 @@
-package com.szh.parseModule.model;
+package com.szh.contractReviewSystem.model;
 
 import java.time.LocalDateTime;
 

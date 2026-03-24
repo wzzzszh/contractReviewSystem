@@ -1,7 +1,7 @@
-package com.szh.parseModule.controller;
+package com.szh.contractReviewSystem.controller;
 
-import com.szh.parseModule.common.Result;
-import com.szh.parseModule.config.SystemConfig;
+import com.szh.contractReviewSystem.common.Result;
+import com.szh.contractReviewSystem.config.SystemConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

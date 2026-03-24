@@ -1,4 +1,4 @@
-package com.szh.parseModule.task;
+package com.szh.contractReviewSystem.task;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

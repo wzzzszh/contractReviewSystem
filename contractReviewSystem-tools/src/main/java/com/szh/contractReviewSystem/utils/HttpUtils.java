@@ -1,4 +1,4 @@
-package com.szh.parseModule.utils;
+package com.szh.contractReviewSystem.utils;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
