@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: contractReviewSystem
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  redis:
+    host: localhost
+    port: 6379
+    password: 
+    database: 0
+    timeout: 5000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+  logging:
+    file:
+      name: logs/app.log
+
+server:
+  port: 8080
+
+
+logging:
+  level:
+    com.szh.contractReviewSystem: debug
+    org.apache.pdfbox: INFO
+    org.apache.fontbox: WARN
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+system:
+  name: contractReviewSystem
+  version: 1.0.0
+  copyrightYear: 2025
+  uploadPath: /uploads
+  avatarPath: /avatar
+  downloadPath: /download
+  addressEnabled: true
+  demoMode: false

@@ -6,30 +6,64 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.szh</groupId>
     <artifactId>contractReviewSystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>contractReviewSystem</name>
-    <description>contractReviewSystem</description>
+    <description>合同审查系统</description>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>11</java.version>
         <pagehelper.version>1.4.1</pagehelper.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <poi.version>5.2.2</poi.version>
+        <poi.version>5.2.3</poi.version>
+        <langchain4j.version>0.31.0</langchain4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <modules>
-        <module>contractReviewSystem-tools</module>
-        <module>contractReviewSystem-application</module>
-        <module>contractReviewSystem-bootstrap</module>
-        <module>fileConvert</module>
-        <module>skill2Scan</module>
+        <module>contractReviewSystem-common</module>
+        <module>contractReviewSystem-service</module>
+        <module>contractReviewSystem-web</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.szh</groupId>
+                <artifactId>contractReviewSystem-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.szh</groupId>
+                <artifactId>contractReviewSystem-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>2.0.30</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j</artifactId>
+                <version>${langchain4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-open-ai</artifactId>
+                <version>${langchain4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.volcengine</groupId>
+                <artifactId>volcengine-java-sdk-ark-runtime</artifactId>
+                <version>LATEST</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
