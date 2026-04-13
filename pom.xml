@@ -16,11 +16,12 @@
     <description>合同审查系统</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <pagehelper.version>1.4.1</pagehelper.version>
         <jjwt.version>0.9.1</jjwt.version>
         <poi.version>5.2.3</poi.version>
-        <langchain4j.version>0.31.0</langchain4j.version>
+        <langchain4j.version>1.13.0</langchain4j.version>
+        <langchain4j.skills.version>1.13.0-beta23</langchain4j.skills.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -57,6 +58,16 @@
                 <groupId>dev.langchain4j</groupId>
                 <artifactId>langchain4j-open-ai</artifactId>
                 <version>${langchain4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-skills</artifactId>
+                <version>${langchain4j.skills.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-experimental-skills-shell</artifactId>
+                <version>${langchain4j.skills.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.volcengine</groupId>

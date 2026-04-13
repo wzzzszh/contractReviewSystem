@@ -41,3 +41,23 @@ system:
   downloadPath: /download
   addressEnabled: true
   demoMode: false
+
+ark:
+  apiKey: ${ARK_API_KEY:}
+  baseUrl: https://ark.cn-beijing.volces.com/api/v3
+  model: ${ARK_MODEL:}
+
+docx-agent:
+  enabled: true
+  baseUrl: ${ark.baseUrl}
+  apiKey: ${ark.apiKey}
+  model: ${ark.model}
+  skillPath: ${user.home}/.codex/skills/docx
+  shellWorkingDirectory: ${docx-agent.skillPath}
+  pythonCommand: D:/Tools/python.exe
+  temperature: 0.1
+  maxCompletionTokens: 4096
+  maxSequentialToolsInvocations: 12
+  maxStdOutChars: 20000
+  maxStdErrChars: 12000
+  timeoutSeconds: 90
