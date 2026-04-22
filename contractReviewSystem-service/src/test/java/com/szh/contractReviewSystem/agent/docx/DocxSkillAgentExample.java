@@ -45,7 +45,10 @@ public class DocxSkillAgentExample {
                 .toAbsolutePath()
                 .normalize();
         Path output = resolveModuleTargetPath(input, OUTPUT_DOCX);
-
+        // 调用 agent 修改文档,翻译：从甲方视角审阅本劳动合同。
+        // 强化关于岗位调整、保密、违约责任及合同解除的条款。
+        // 对表述模糊或易引发争议的措辞进行优化，但不杜撰具体金额、日期或比例。
+        // 尽量保留原有的标题结构与格式。
         String result = agentService.modifyDocument(
                 input,
                 output,
@@ -57,7 +60,8 @@ public class DocxSkillAgentExample {
                 """
         );
 
-        System.out.println(result == null ? "Agent returned no final text." : result);
+        System.out.println(result == null ? "Agent 没有返回文本。 " : result);
+
     }
 
     private static String safeGetApiKey() {

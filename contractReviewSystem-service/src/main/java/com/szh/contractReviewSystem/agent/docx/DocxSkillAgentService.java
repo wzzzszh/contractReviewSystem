@@ -74,43 +74,53 @@ public class DocxSkillAgentService {
      */
     public String modifyDocument(Path inputDocument, Path outputDocument, String modificationRequirement) {
         if (inputDocument == null) {
-            throw new IllegalArgumentException("Input document must not be null");
+            throw new IllegalArgumentException("输入的文档不能为空 ");
         }
         if (outputDocument == null) {
-            throw new IllegalArgumentException("Output document must not be null");
+            throw new IllegalArgumentException("输出的文档不能为空 ");
         }
         if (isBlank(modificationRequirement)) {
-            throw new IllegalArgumentException("Modification requirement must not be blank");
+            throw new IllegalArgumentException("修改要求不能为空 ");
         }
-
+        // 一.确保输入文件存在
         Path normalizedInput = inputDocument.toAbsolutePath().normalize();
         Path normalizedOutput = outputDocument.toAbsolutePath().normalize();
         if (!Files.exists(normalizedInput)) {
-            throw new IllegalArgumentException("Input document does not exist: " + normalizedInput);
+            throw new IllegalArgumentException("输入的文档不存在: " + normalizedInput);
         }
 
+        // 二.验证 Python 环境
         verifyPythonEnvironment();
 
         try {
+            // 确保输出目录存在
             Path outputParent = normalizedOutput.getParent();
             if (outputParent != null) {
                 Files.createDirectories(outputParent);
             }
-
+            // 创建工作目录
             Path runDirectory = createRunDirectory(outputParent);
+            // 创建解压目录
             Path unpackedDirectory = runDirectory.resolve("unpacked");
+            // 创建document.xml路径
             Path documentXml = unpackedDirectory.resolve("word").resolve("document.xml");
+            // 创建补丁计划文件路径
             Path patchPlanFile = runDirectory.resolve("patch-plan.json");
-
+            // 解压文档
             unpackDocx(normalizedInput, unpackedDirectory);
+            // 验证 document.xml 是否存在
             if (!Files.exists(documentXml)) {
-                throw new IllegalStateException("document.xml not found after unpack: " + documentXml);
+                throw new IllegalStateException("document.xml在解压后不存在: " + documentXml);
             }
-
+            // 提取文档文本，用于生成补丁计划
             String sourceText = extractParagraphTextFromDocumentXml(documentXml);
+            // 生成补丁计划，根据修改要求
             PatchPlan patchPlan = generatePatchPlan(sourceText, modificationRequirement.trim());
+            // 保存补丁计划，供后续应用
             savePatchPlan(patchPlanFile, patchPlan);
+            // 应用补丁计划，根据生成的补丁计划修改 document.xml
             applyPatchPlan(documentXml, patchPlan);
+            // 打包文档，使用 Python 脚本重新打包
             packDocx(unpackedDirectory, normalizedInput, normalizedOutput);
 
             return "Document revised with docx skill pipeline. Output file: "
@@ -127,6 +137,7 @@ public class DocxSkillAgentService {
      * 创建工作目录
      */
     private Path createRunDirectory(Path outputParent) throws IOException {
+        // 确定基础目录
         Path baseDirectory = outputParent != null
                 ? outputParent.resolve("docx-agent-work")
                 : Path.of(System.getProperty("java.io.tmpdir"), "docx-agent-work");
@@ -139,6 +150,7 @@ public class DocxSkillAgentService {
      * 使用 Python 脚本解压 docx 文件
      */
     private void unpackDocx(Path inputDocument, Path unpackedDirectory) {
+        //获取技能路径
         Path skillPath = resolveSkillPath();
         Path unpackScript = skillPath.resolve("scripts").resolve("office").resolve("unpack.py");
         ProcessResult result = runProcess(
@@ -207,12 +219,16 @@ public class DocxSkillAgentService {
         try {
             Document document = readXml(documentXml);
             StringBuilder text = new StringBuilder();
+            // 遍历所有段落元素
             for (Element paragraph : getParagraphElements(document)) {
+                // 提取段落文本
                 String paragraphText = extractParagraphText(paragraph);
+                // 如果段落文本不为空，则添加到结果中
                 if (!isBlank(paragraphText)) {
                     text.append(paragraphText).append("\n\n");
                 }
             }
+            // 去除前后的空格，并截断过长的文本，确保不超过最大长度
             String sourceText = text.toString().trim();
             if (sourceText.length() > MAX_SOURCE_TEXT_LENGTH) {
                 return sourceText.substring(0, MAX_SOURCE_TEXT_LENGTH);
@@ -227,27 +243,32 @@ public class DocxSkillAgentService {
      * 调用 LLM 生成补丁方案
      */
     private PatchPlan generatePatchPlan(String sourceText, String modificationRequirement) {
+        // 解析配置
         ResolvedConfig config = resolveConfig();
+        // 创建 ArkService 实例
         ArkService arkService = ArkService.builder()
                 .baseUrl(config.baseUrl())
                 .apiKey(config.apiKey())
                 .build();
         try {
+            // 创建一个消息列表，包含系统提示词和用户提示词
             List<ChatMessage> messages = new ArrayList<>();
+            // 添加系统提示词
             messages.add(ChatMessage.builder()
                     .role(ChatMessageRole.SYSTEM)
                     .content(buildPatchPlanSystemPromptFixed())
+            // 添加用户提示词
                     .build());
             messages.add(ChatMessage.builder()
                     .role(ChatMessageRole.USER)
                     .content(buildPatchPlanUserPromptFixed(sourceText, modificationRequirement))
                     .build());
-
+            // 创建聊天完成请求
             ChatCompletionRequest request = ChatCompletionRequest.builder()
                     .model(config.model())
                     .messages(messages)
                     .build();
-
+            // 调用 LLM 创建聊天完成响应
             StringBuilder result = new StringBuilder();
             arkService.createChatCompletion(request)
                     .getChoices()
@@ -256,13 +277,15 @@ public class DocxSkillAgentService {
                             result.append(choice.getMessage().getContent());
                         }
                     });
-
+            // 获取结果字符串并去除前后的空格
             String raw = result.toString().trim();
             if (isBlank(raw)) {
                 throw new IllegalStateException("LLM returned empty patch plan");
             }
 
+            // 从结果字符串中提取 JSON 对象
             String json = extractJsonObject(raw);
+            // 将 JSON 字符串转换为 PatchPlan 对象
             PatchPlan patchPlan = OBJECT_MAPPER.readValue(json, PatchPlan.class);
             if (patchPlan == null || patchPlan.operations == null) {
                 return new PatchPlan();
