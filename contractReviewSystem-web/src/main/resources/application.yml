@@ -52,7 +52,7 @@ docx-agent:
   baseUrl: ${ark.baseUrl}
   apiKey: ${ark.apiKey}
   model: ${ark.model}
-  skillPath: ${user.home}/.codex/skills/docx
+  skillPath: C:/Users/szh/.codex/skills/docx
   shellWorkingDirectory: ${docx-agent.skillPath}
   pythonCommand: D:/Tools/python.exe
   temperature: 0.1
