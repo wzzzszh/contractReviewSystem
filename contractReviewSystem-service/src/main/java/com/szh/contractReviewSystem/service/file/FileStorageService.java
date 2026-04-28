@@ -1,12 +1,18 @@
 package com.szh.contractReviewSystem.service.file;
 
 import com.szh.contractReviewSystem.config.SystemConfig;
+import com.szh.contractReviewSystem.exception.BusinessExceptionEnum;
+import com.szh.contractReviewSystem.exception.CustomException;
 import com.szh.contractReviewSystem.utils.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 @Service
 public class FileStorageService {
@@ -17,35 +23,103 @@ public class FileStorageService {
         this.systemConfig = systemConfig;
     }
 
-    public String upload(MultipartFile file) throws IOException {
-        if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("文件不能为空");
-        }
+    public String upload(MultipartFile file) {
+        validateUploadFile(file);
+        return saveUploadedFile(file, resolveUploadRoot());
+    }
 
-        String uploadPath = systemConfig == null ? null : systemConfig.getUploadPath();
-        if (isBlank(uploadPath)) {
-            return FileUtils.uploadFile(file);
+    public String uploadForUser(Long userId, MultipartFile file) {
+        if (userId == null || userId <= 0) {
+            throw new CustomException(BusinessExceptionEnum.PARAMETER_ERROR, "用户ID不能为空且必须大于0");
         }
-        return FileUtils.uploadFile(file, uploadPath);
+        validateUploadFile(file);
+
+        Path userDirectory = resolveUploadRoot().resolve("user-" + userId);
+        return saveUploadedFile(file, userDirectory);
     }
 
     public File requireDownloadFile(String filePath) {
         if (isBlank(filePath)) {
-            throw new IllegalArgumentException("文件路径不能为空");
+            throw new CustomException(BusinessExceptionEnum.PARAMETER_ERROR, "文件路径不能为空");
         }
 
-        File file = new File(filePath.trim());
+        File file = Path.of(filePath.trim()).toAbsolutePath().normalize().toFile();
         if (!file.exists() || !file.isFile()) {
-            throw new IllegalArgumentException("文件不存在: " + filePath);
+            throw new CustomException(BusinessExceptionEnum.FILE_NOT_FOUND);
         }
         return file;
     }
 
     public boolean delete(String filePath) {
         if (isBlank(filePath)) {
-            throw new IllegalArgumentException("文件路径不能为空");
+            throw new CustomException(BusinessExceptionEnum.PARAMETER_ERROR, "文件路径不能为空");
         }
-        return FileUtils.deleteFile(filePath.trim());
+        return FileUtils.deleteFile(Path.of(filePath.trim()).toAbsolutePath().normalize().toString());
+    }
+
+    private String saveUploadedFile(MultipartFile file, Path directory) {
+        String originalFilename = file.getOriginalFilename();
+        if (!FileUtils.isValidExtension(originalFilename)) {
+            throw new CustomException(BusinessExceptionEnum.FILE_TYPE_NOT_SUPPORTED);
+        }
+
+        try {
+            Files.createDirectories(directory);
+            Path targetPath = directory
+                    .resolve(FileUtils.generateUniqueFileName(originalFilename))
+                    .toAbsolutePath()
+                    .normalize();
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
+            }
+            return targetPath.toString();
+        } catch (IOException e) {
+            throw new CustomException(BusinessExceptionEnum.FILE_UPLOAD_FAILED,
+                    BusinessExceptionEnum.FILE_UPLOAD_FAILED.getMessage(), e);
+        }
+    }
+
+    private Path resolveUploadRoot() {
+        String uploadPath = systemConfig == null ? null : systemConfig.getUploadPath();
+        if (isBlank(uploadPath)) {
+            return Path.of(System.getProperty("user.dir"), "uploads").toAbsolutePath().normalize();
+        }
+
+        String normalizedPath = uploadPath.trim();
+        Path configuredPath = Path.of(normalizedPath);
+        if (isExplicitAbsolutePath(normalizedPath, configuredPath)) {
+            return configuredPath.toAbsolutePath().normalize();
+        }
+
+        String relativePath = trimLeadingSeparators(normalizedPath);
+        if (isBlank(relativePath)) {
+            relativePath = "uploads";
+        }
+        return Path.of(System.getProperty("user.dir"), relativePath).toAbsolutePath().normalize();
+    }
+
+    private boolean isExplicitAbsolutePath(String rawPath, Path path) {
+        if (!path.isAbsolute()) {
+            return false;
+        }
+        if (File.separatorChar != '\\') {
+            return true;
+        }
+        return rawPath.matches("^[a-zA-Z]:[\\\\/].*") || rawPath.startsWith("\\\\");
+    }
+
+    private String trimLeadingSeparators(String value) {
+        String result = value;
+        while (result.startsWith("/") || result.startsWith("\\")) {
+            result = result.substring(1);
+        }
+        return result;
+    }
+
+    private void validateUploadFile(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new CustomException(BusinessExceptionEnum.PARAMETER_ERROR, "文件不能为空");
+        }
     }
 
     private boolean isBlank(String value) {

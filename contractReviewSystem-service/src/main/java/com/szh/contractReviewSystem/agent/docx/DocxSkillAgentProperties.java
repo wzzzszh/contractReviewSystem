@@ -12,6 +12,7 @@ public class DocxSkillAgentProperties {
     private String baseUrl = "https://ark.cn-beijing.volces.com/api/v3";
     private String model;
     private String skillPath;
+    private String legalContractRiskSkillPath = ".trae/skills/legal-contract-risk";
     private String shellWorkingDirectory;
     private String pythonCommand = "python";
     private Double temperature = 0.1D;
@@ -59,6 +60,14 @@ public class DocxSkillAgentProperties {
 
     public void setSkillPath(String skillPath) {
         this.skillPath = skillPath;
+    }
+
+    public String getLegalContractRiskSkillPath() {
+        return legalContractRiskSkillPath;
+    }
+
+    public void setLegalContractRiskSkillPath(String legalContractRiskSkillPath) {
+        this.legalContractRiskSkillPath = legalContractRiskSkillPath;
     }
 
     public String getShellWorkingDirectory() {

@@ -12,6 +12,7 @@ public class DocxModifyRequest {
 
     private String outputPath;
 
-    @NotBlank(message = "modificationRequirement不能为空")
     private String modificationRequirement;
+
+    private DocxModifyPerspective perspective;
 }

@@ -1,4 +1,4 @@
-package com.szh.contractReviewSystem.controller;
+package com.szh.contractReviewSystem.controller.notdb;
 
 import com.szh.contractReviewSystem.common.Result;
 import com.szh.contractReviewSystem.exception.CustomException;

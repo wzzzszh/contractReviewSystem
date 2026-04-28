@@ -1,4 +1,4 @@
-spring:
+﻿spring:
   application:
     name: contractReviewSystem
   jackson:
@@ -17,6 +17,15 @@ spring:
         max-active: 8
         max-idle: 8
         min-idle: 0
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/contract_review_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: root
+    password: sunhao88586906
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
   logging:
     file:
       name: logs/app.log
@@ -24,10 +33,17 @@ spring:
 server:
   port: 8080
 
+auth:
+  jwt:
+    secret: ${JWT_SECRET:contract-review-dev-secret-change-me}
+    access-expiration-minutes: 30
+    refresh-expiration-days: 7
 
 logging:
   level:
-    com.szh.contractReviewSystem: debug
+    com.szh.contractReviewSystem: info
+    org.mybatis: warn
+    org.apache.ibatis: warn
     org.apache.pdfbox: INFO
     org.apache.fontbox: WARN
   pattern:
@@ -43,16 +59,16 @@ system:
   demoMode: false
 
 ark:
-  apiKey: ${ARK_API_KEY:}
+  apiKey: fdd9c300-621c-42e8-a6c6-c946bb956006
   baseUrl: https://ark.cn-beijing.volces.com/api/v3
-  model: ${ARK_MODEL:}
-
+  model: ep-20260331203014-58mf4
 docx-agent:
   enabled: true
   baseUrl: ${ark.baseUrl}
   apiKey: ${ark.apiKey}
   model: ${ark.model}
   skillPath: C:/Users/szh/.codex/skills/docx
+  legalContractRiskSkillPath: .trae/skills/legal-contract-risk
   shellWorkingDirectory: ${docx-agent.skillPath}
   pythonCommand: D:/Tools/python.exe
   temperature: 0.1
@@ -61,3 +77,8 @@ docx-agent:
   maxStdOutChars: 20000
   maxStdErrChars: 12000
   timeoutSeconds: 90
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl

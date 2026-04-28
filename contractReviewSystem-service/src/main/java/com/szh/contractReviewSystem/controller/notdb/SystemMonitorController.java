@@ -1,5 +1,6 @@
-package com.szh.contractReviewSystem.controller;
+package com.szh.contractReviewSystem.controller.notdb;
 
+import com.szh.contractReviewSystem.annotation.RequiresPermissions;
 import com.szh.contractReviewSystem.common.Result;
 import com.szh.contractReviewSystem.config.SystemConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class SystemMonitorController extends BaseController {
      *
      * @return 系统信息
      */
+    @RequiresPermissions("monitor:view")
     @GetMapping("/info")
     public Result<Map<String, Object>> getSystemInfo() {
         Map<String, Object> info = new HashMap<>();
