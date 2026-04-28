@@ -1,0 +1,45 @@
+{
+  "operations" : [ {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第六条 甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : null,
+    "replace" : null,
+    "append" : "基本工资支付日期为每月[具体日期]，甲方应在该日期前足额支付；提成的计算标准、支付周期等需明确告知乙方，若制度变更应提前30日书面通知乙方。",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第九条 因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : "人生伤害",
+    "replace" : "人身伤害",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第九条 因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方应明确赔偿标准（不违反法律法规），若甲方存在过错导致损失扩大的，需承担相应责任。",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同时，应提前三十日以书面形式通知乙方。",
+    "find" : "第十七条",
+    "replace" : "第十二条",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "5、履行保守甲方商业秘密，不得利用甲方的商业秘密为本人或其他经济组织和个人谋取不正当的经济利益。",
+    "find" : null,
+    "replace" : null,
+    "append" : "若乙方违反保密义务，应赔偿甲方直接损失及维权合理费用，并按[具体金额/计算方式]支付违约金。",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "本合同一式两份，甲乙双方各执一份。合同自签订之日起生效，具有同等法律效力。",
+    "find" : null,
+    "replace" : null,
+    "append" : "因本合同发生的劳动争议，双方协商不成的，应向[甲方所在地/乙方工作地]劳动争议仲裁委员会申请仲裁；对仲裁裁决不服的，可向人民法院起诉。",
+    "text" : null
+  } ]
+}

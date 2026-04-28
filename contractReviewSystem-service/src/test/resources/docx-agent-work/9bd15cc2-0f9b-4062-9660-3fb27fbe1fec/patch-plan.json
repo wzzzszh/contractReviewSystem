@@ -1,0 +1,59 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : "甲方的基本工资",
+    "replace" : "乙方的基本工资",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : "人生伤害",
+    "replace" : "人身伤害",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方按照第十七条第7、8、9款的规定解除本合同",
+    "find" : "第十七条",
+    "replace" : "第十二条",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "乙方欲解除劳动合同，应当提前三十日以书面形式通知甲方，甲方在乙方完成业务以及清理完所办理的债权债务的情况下，可解除劳动合同。",
+    "find" : "可解除劳动合同",
+    "replace" : "应当解除劳动合同",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "本合同期限为＿＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "find" : "本合同期限为＿＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "replace" : "本合同为固定期限劳动合同，本合同期限为＿＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "乙方患病或非因工负伤、医疗期满后，不能从事原工作也不能从事甲方另行安排的工作的；",
+    "find" : "医疗期满后，不能从事原工作",
+    "replace" : "医疗期满后，经劳动能力鉴定委员会确认，不能从事原工作",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲乙双方经协商同意，可以续订劳动合同。双方当事人应当在本合同期满前 30天向对方表示续订意向。",
+    "find" : "30天",
+    "replace" : "三十日",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "本合同一式两份，甲乙双方各执一份。合同自签订之日起生效，具有同等法律效力。",
+    "find" : null,
+    "replace" : null,
+    "append" : "如乙方持有的合同文本与甲方持有的文本不一致，以甲方持有的文本为准。",
+    "text" : null
+  } ]
+}

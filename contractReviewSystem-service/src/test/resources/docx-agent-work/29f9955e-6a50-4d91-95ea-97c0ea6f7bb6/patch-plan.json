@@ -1,0 +1,59 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : "甲方",
+    "replace" : "乙方",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : "人生伤害",
+    "replace" : "人身伤害",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同",
+    "find" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同",
+    "replace" : "第十七条 甲方按照第十二条第7、8、9款的规定解除本合同",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方在乙方完成业务以及清理完所办理的债权债务的情况下，可解除劳动合同。",
+    "find" : "可",
+    "replace" : "应当",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "在法定工作时间内，乙方完成规定的工作任务，甲方应以货币形式按月支付乙方工资。",
+    "find" : null,
+    "replace" : null,
+    "append" : "具体支付日期为每月 日（需甲乙双方明确具体日期）。",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理",
+    "find" : null,
+    "replace" : null,
+    "append" : "乙方应按实际损失金额向甲方承担赔偿责任，赔偿期限为 日（需明确期限）。",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "劳动合同期限为＿＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "find" : null,
+    "replace" : null,
+    "append" : "本合同期限类型为（固定期限/无固定期限/以完成一定工作任务为期限，需明确）。",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "甲乙双方经协商同意，可以续订劳动合同。双方当事人应当在本合同期满前 30天向对方表示续订意向。",
+    "find" : null,
+    "replace" : null,
+    "append" : "若乙方未在期满前30天表示续订意向，视为不同意续订；若甲方未在期满前30天表示续订意向，应提前 日（需明确）书面通知乙方。",
+    "text" : null
+  } ]
+}

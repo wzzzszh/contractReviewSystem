@@ -1,0 +1,59 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方 （单位）：",
+    "find" : "甲方 （单位）：",
+    "replace" : "甲方 （单位）：[甲方准确全称] 统一社会信用代码：[甲方统一社会信用代码]",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第八条 乙方应遵守甲方依法规定的规章制度、劳动纪律，服从安排，保质保量完成各项任务。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方已将《员工手册》等规章制度向乙方公示/送达，乙方确认已阅读并理解。",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第六条 甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : "第六条 甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "replace" : "第六条 甲方的基本工资为[具体金额]/月，提成计算方式为[具体计算方式]，支付周期为[具体周期]，支付条件为[具体条件]。",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第四条 甲乙双方执行国家劳动安全卫生法律、法规、规程和标准。甲方负责对乙方进行政治思想、职业道德、业务技术、劳动安全卫生及有关规章制度的教育和培训。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方为乙方提供符合国家规定的劳动防护用品，定期组织劳动安全培训。",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第一条 本合同期限为＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "find" : "第一条 本合同期限为＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "replace" : "第一条 本合同期限类型为[固定/无固定期限]，期限为[具体期限]年。本合同生效日期[YYYY年MM月DD日]，终止日期[YYYY年MM月DD日]。试用期为[X]个月，试用期工资为[具体金额]/月（不得低于基本工资的80%且不低于当地最低工资标准）。",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第七条 在法定工作时间内，乙方完成规定的工作任务，甲方应以货币形式按月支付乙方工资。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方于每月[具体日期]前以货币形式支付乙方上月工资。",
+    "text" : null
+  }, {
+    "type" : "insert_paragraph_after",
+    "anchor" : "第十六条 订立无固定期限劳动合同的，乙方达到法定退休年龄或甲乙双方约定的其他终止条件出现，本合同终止。",
+    "find" : null,
+    "replace" : null,
+    "append" : null,
+    "text" : "双方因本合同履行发生争议，应先向甲方所在地劳动争议仲裁委员会申请仲裁；对仲裁结果不服的，可向甲方所在地人民法院起诉。"
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "5、履行保守甲方商业秘密，不得利用甲方的商业秘密为本人或其他经济组织和个人谋取不正当的经济利益。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方的商业秘密范围包括客户信息、技术资料等（具体以附件为准）；保密期限为合同期内及乙方离职后[X]年。",
+    "text" : null
+  } ]
+}

@@ -1,0 +1,59 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "replace" : "乙方的基本工资为＿＿＿/月，提成详见公司制度。需明确提成的计算标准、支付条件及支付周期",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "replace" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人身伤害，按甲方有关制度处理。明确乙方赔偿责任的范围（直接经济损失）、赔偿方式（工资扣除比例上限）及故意/重大过失的责任区分",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同时，应提前三十日以书面形式通知乙方。",
+    "find" : "第十七条第7、8、9款",
+    "replace" : "第十二条第7、8、9款",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "5、履行保守甲方商业秘密，不得利用甲方的商业秘密为本人或其他经济组织和个人谋取不正当的经济利益。",
+    "find" : null,
+    "replace" : null,
+    "append" : "明确甲方商业秘密的具体范围（客户名单、技术资料等）、保密期限（合同终止后X年）及违反保密义务的违约责任",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第七条 在法定工作时间内，乙方完成规定的工作任务，甲方应以货币形式按月支付乙方工资。",
+    "find" : null,
+    "replace" : null,
+    "append" : "于每月[具体日期]前支付",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第十三条 乙方欲解除劳动合同，应当提前三十日以书面形式通知甲方，甲方在乙方完成业务以及清理完所办理的债权债务的情况下，可解除劳动合同。",
+    "find" : "可解除劳动合同",
+    "replace" : "应当配合办理解除手续。需完成工作交接（含业务、债权债务清理）",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第一条 本合同期限为＿＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "find" : null,
+    "replace" : null,
+    "append" : "期限类型（固定/无固定），明确生效/终止日期的具体填写要求",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第十六条 订立无固定期限劳动合同的，乙方达到法定退休年龄或甲乙双方约定的其他终止条件出现，本合同终止。",
+    "find" : null,
+    "replace" : null,
+    "append" : "需明确其他终止条件的具体内容",
+    "text" : null
+  } ]
+}

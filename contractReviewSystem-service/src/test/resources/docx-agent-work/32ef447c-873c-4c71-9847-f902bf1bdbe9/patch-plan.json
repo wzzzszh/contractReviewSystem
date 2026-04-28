@@ -1,0 +1,59 @@
+{
+  "operations" : [ {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "担任 岗位工作",
+    "find" : null,
+    "replace" : null,
+    "append" : "具体岗位名称为[需明确]，工作任务清单及职责范围详见附件一《岗位说明书》",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "提成详见公司制度",
+    "find" : "提成详见公司制度",
+    "replace" : "提成计算方式、支付周期及条件详见附件二《公司提成制度细则》",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "甲方负责对乙方进行政治思想、职业道德、业务技术、劳动安全卫生及有关规章制度的教育和培训",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方应向乙方提供符合国家规定的劳动条件，包括但不限于必要的办公设备、劳动防护用品及安全卫生的工作环境",
+    "text" : null
+  }, {
+    "type" : "insert_paragraph_after",
+    "anchor" : "本合同终止。",
+    "find" : null,
+    "replace" : null,
+    "append" : null,
+    "text" : "因本合同履行发生的争议，双方应先协商解决；协商不成的，任何一方应先向甲方所在地有管辖权的劳动争议仲裁委员会申请仲裁；对仲裁裁决不服的，可向甲方所在地人民法院提起诉讼。"
+  }, {
+    "type" : "insert_paragraph_after",
+    "anchor" : "签订日期： 年 月 日",
+    "find" : null,
+    "replace" : null,
+    "append" : null,
+    "text" : "附件清单：1.《岗位说明书》；2.《公司提成制度细则》；3.《保密协议》（如有）。附件与本合同具有同等法律效力。"
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "合同自签订之日起生效",
+    "find" : "合同自签订之日起生效",
+    "replace" : "本合同自双方法定代表人或授权代表签字并加盖甲方公章、乙方签字并按指印之日起生效",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "达到规定的质量标准",
+    "find" : null,
+    "replace" : null,
+    "append" : "具体质量标准详见附件一《岗位说明书》，或执行[行业标准/甲方内部标准]",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "履行保守甲方商业秘密",
+    "find" : null,
+    "replace" : null,
+    "append" : "本合同所称商业秘密包括但不限于甲方的技术信息、客户信息、经营策略等；保密期限为劳动合同履行期间及终止后[需明确]年；乙方违反保密义务的，应向甲方支付违约金[需明确]元，造成损失的还应承担赔偿责任",
+    "text" : null
+  } ]
+}

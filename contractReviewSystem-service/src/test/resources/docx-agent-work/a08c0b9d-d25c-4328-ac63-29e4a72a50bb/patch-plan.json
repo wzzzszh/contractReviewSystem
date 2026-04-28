@@ -1,0 +1,52 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : "甲方的基本工资",
+    "replace" : "乙方的基本工资",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "提成详见公司制度。",
+    "find" : null,
+    "replace" : null,
+    "append" : "提成的计算标准为[具体标准]，支付周期为[具体周期]。",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : "人生伤害",
+    "replace" : "人身伤害",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方违反本合同约定给乙方造成损失的，应依法承担赔偿责任。乙方赔偿的具体范围为实际损失，标准为按实际损失金额的[具体比例/全额]赔偿。",
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方按照第十七条第7、8、9款的规定解除本合同时",
+    "find" : "第十七条",
+    "replace" : "第十二条",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "不得利用甲方的商业秘密为本人或其他经济组织和个人谋取不正当的经济利益。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方商业秘密包括但不限于技术信息、经营信息、客户资料等。违反保密义务给甲方造成损失的，应承担赔偿责任。",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "甲方应以货币形式按月支付乙方工资。",
+    "find" : null,
+    "replace" : null,
+    "append" : "工资应于每月[具体日期]前支付。",
+    "text" : null
+  } ]
+}

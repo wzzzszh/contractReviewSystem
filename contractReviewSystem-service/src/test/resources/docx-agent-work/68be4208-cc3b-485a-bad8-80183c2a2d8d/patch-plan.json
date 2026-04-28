@@ -1,0 +1,38 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "replace" : "乙方的基本工资为＿＿＿/月，提成按乙方完成业绩的X%计算，与当月基本工资一并支付。",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同",
+    "find" : "第十七条",
+    "replace" : "第十二条",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "履行保守甲方商业秘密，不得利用甲方的商业秘密为本人或其他经济组织和个人谋取不正当的经济利益。",
+    "find" : null,
+    "replace" : null,
+    "append" : "商业秘密范围包括但不限于甲方客户名单、技术资料、经营数据等，保密期限为乙方在职期间及离职后2年。",
+    "text" : null
+  }, {
+    "type" : "insert_paragraph_after",
+    "anchor" : "第九条 因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : null,
+    "replace" : null,
+    "append" : null,
+    "text" : "第十条 若甲方未按时足额支付劳动报酬，应按应付未付金额的X%向乙方支付违约金；若甲方违反劳动安全卫生规定造成乙方损害，应依法承担赔偿责任。"
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "本合同期限为＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。",
+    "find" : null,
+    "replace" : null,
+    "append" : "若约定试用期，试用期为＿＿个月，自本合同生效之日起算，试用期工资不低于本合同约定工资的80%且不低于当地最低工资标准。",
+    "text" : null
+  } ]
+}

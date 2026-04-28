@@ -1,0 +1,59 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方的基本工资为＿＿＿/月，提成详见公司制度。",
+    "find" : "甲方的基本工资",
+    "replace" : "乙方的基本工资",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "replace" : "因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人身伤害，按国家相关法律法规承担相应责任。",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "乙方欲解除劳动合同，应当提前三十日以书面形式通知甲方，甲方在乙方完成业务以及清理完所办理的债权债务的情况下，可解除劳动合同。",
+    "find" : "甲方在乙方完成业务以及清理完所办理的债权债务的情况下，可解除劳动合同",
+    "replace" : "本合同自乙方书面通知送达甲方满三十日起解除",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同时，应提前三十日以书面形式通知乙方。",
+    "find" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同时，应提前三十日以书面形式通知乙方。",
+    "replace" : "第十七条 甲方按照第十二条第7、8、9款的规定解除本合同时，应提前三十日以书面形式通知乙方。",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "3、严重违反劳动纪律或甲方利益造成重大损害的；",
+    "find" : null,
+    "replace" : null,
+    "append" : "（具体标准见甲方依法制定的规章制度）",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "4、严重失职、营私舞弊，对甲方利益造成损失的；",
+    "find" : null,
+    "replace" : null,
+    "append" : "（具体标准见甲方依法制定的规章制度）",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "5、泄露甲方商业秘密，给甲方造成严重损失的；",
+    "find" : null,
+    "replace" : null,
+    "append" : "（具体标准见甲方依法制定的规章制度）",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "甲方应以货币形式按月支付乙方工资。",
+    "find" : null,
+    "replace" : null,
+    "append" : "每月[具体日期]前支付（具体日期由双方协商确定后填写）",
+    "text" : null
+  } ]
+}

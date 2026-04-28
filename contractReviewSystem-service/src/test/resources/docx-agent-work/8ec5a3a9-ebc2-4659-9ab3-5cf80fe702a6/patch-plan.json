@@ -1,0 +1,59 @@
+{
+  "operations" : [ {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方的基本工资为＿＿＿/月",
+    "find" : "甲方的基本工资",
+    "replace" : "乙方的基本工资",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "对自己或他人造成人生伤害",
+    "find" : "人生伤害",
+    "replace" : "人身伤害",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方按照第十七条第7、8、9款的规定解除本合同时",
+    "find" : "第十七条",
+    "replace" : "第十二条",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "replace_text_in_paragraph",
+    "anchor" : "甲方在乙方完成业务以及清理完所办理的债权债务的情况下，可解除劳动合同",
+    "find" : "可解除",
+    "replace" : "应当解除",
+    "append" : null,
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第七条 在法定工作时间内，乙方完成规定的工作任务，甲方应以货币形式按月支付乙方工资。",
+    "find" : null,
+    "replace" : null,
+    "append" : "支付日期为每月[具体日期]（需明确补充）",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第十八条 甲方按照第十七条第7、8、9款的规定解除本合同时，应提前三十日以书面形式通知乙方。",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方解除合同需依法向乙方支付经济补偿，补偿标准按照《中华人民共和国劳动合同法》相关规定执行",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第九条 因乙方违章作业造成甲方财产损失，按甲方有关制度予以赔偿或处理，对自己或他人造成人生伤害，按甲方有关制度处理。",
+    "find" : null,
+    "replace" : null,
+    "append" : "乙方需承担相应赔偿责任，具体赔偿标准按国家相关法律法规执行",
+    "text" : null
+  }, {
+    "type" : "append_sentence_to_paragraph",
+    "anchor" : "第十二条 乙方有下列情形之一，甲方可以解除本合同：",
+    "find" : null,
+    "replace" : null,
+    "append" : "甲方解除合同前需将解除理由书面通知工会（如有）",
+    "text" : null
+  } ]
+}

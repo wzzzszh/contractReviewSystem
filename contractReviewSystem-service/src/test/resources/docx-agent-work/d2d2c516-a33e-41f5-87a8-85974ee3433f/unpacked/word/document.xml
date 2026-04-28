@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" xmlns:wpsCustomData="http://www.wps.cn/officeDocument/2013/wpsCustomData" mc:Ignorable="w14 w15 wp14">
+  <w:background w:color="FFFFFF"/>
+  <w:body>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:spacing w:val="150"/>
+          <w:sz w:val="44"/>
+          <w:szCs w:val="44"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:spacing w:val="150"/>
+          <w:sz w:val="44"/>
+          <w:szCs w:val="44"/>
+        </w:rPr>
+        <w:t>劳动合同书</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>甲方 （单位）：</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">    </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+          <w:lang w:eastAsia="zh-CN" w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">                      </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">    </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>乙方 （个人）：</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">    </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+          <w:lang w:eastAsia="zh-CN" w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">                      </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">    </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>根据《中华人民共和国劳动法》，经甲乙双方平等协商同意，自愿签订本合同，共同遵守本合同所列条款。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="562" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>一．劳动合同期限</w:t>
+      </w:r>
+    </w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>第一条 本合同期限为＿＿＿＿年。本合同生效日期＿＿＿年＿月＿日，终止日期＿＿＿年＿月＿日。（请明确合同期限类型：如为固定期限，填写具体年数及起止日期；如为无固定期限，删除终止日期项并注明）</w:t></w:r></w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">   </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> 二．工作内容和义务 </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第二条 乙方同意根据甲方工作需要，担任</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+          <w:u w:val="single"/>
+        </w:rPr>
+        <w:t xml:space="preserve">         </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>岗位工作。甲方可依照有关规</w:t>
+      </w:r>
+      <w:bookmarkStart w:id="0" w:name="_GoBack"/>
+      <w:bookmarkEnd w:id="0"/>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>定，经与乙方协商，对乙方的工作职务和岗位进行调整。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第三条 乙方应按照甲方的要求，按时完成规定的工作数量，达到规定的质量标准，并履行下列义务：</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>1、遵守国家宪法、法律、法规；</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>2、遵守甲方的规章制度；</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">3、维护甲方的荣誉和利益； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">4、忠于职守，勤奋工作； </w:t>
+      </w:r>
+    </w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>5、履行保守甲方商业秘密（商业秘密范围详见甲方依法制定的商业秘密管理规定），不得利用甲方的商业秘密为本人或其他经济组织和个人谋取不正当的经济利益。</w:t></w:r></w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">    </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">三．劳动保护和劳动条件 </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第四条 甲乙双方执行国家劳动安全卫生法律、法规、规程和标准。甲方负责对乙方进行政治思想、职业道德、业务技术、劳动安全卫生及有关规章制度的教育和培训。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="480"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第五条 乙方在劳动过程中应严格遵守操作规程。对甲方违章指挥、强令冒险作业，有权拒绝执行。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="562" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">四．劳动报酬 </w:t>
+      </w:r>
+    </w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>第六条 乙方的基本工资为＿＿＿/月，提成的计算标准、支付周期及条件详见公司经民主程序制定并公示的合法有效的规章制度。</w:t></w:r></w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>第七条 在法定工作时间内，乙方完成规定的工作任务，甲方应以货币形式按月支付乙方工资。具体支付日期为每月 日。</w:t></w:r></w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="562" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>五．劳动纪律</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第八条 乙方应遵守甲方依法规定的规章制度、劳动纪律，服从安排，保质保量完成各项任务。</w:t>
+      </w:r>
+    </w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>第九条 因乙方违章作业造成甲方财产损失，按国家有关法律法规及甲方合法有效的规章制度处理，对自己或他人造成人身伤害，按国家有关法律法规及甲方合法有效的规章制度处理。</w:t></w:r></w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="562" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:b/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>六．劳动合同的变更、解除、终止、续订</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第十条 订立本合同所依据的法律、行政法规、规章发生变化，本合同应变更相关内容。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第十一条 订立本合同所依据的客观情况发生重大变化，致使本合同无法履行的，经双方协商同意，可以变更本合同相关的内容。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">第十二条 乙方有下列情形之一，甲方可以解除本合同： </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">1、在试用期间，被证明不符合录用条件的； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">2、以欺诈手段订立本合同的； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>3、严重违反劳动纪律或甲方利益造成重大损害的；</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">4、严重失职、营私舞弊，对甲方利益造成损失的； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">5、泄露甲方商业秘密，给甲方造成严重损失的； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">6、被依法追究刑事责任的； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>7、不能胜任劳动合同约定的工作，经过培训或调整工作岗位仍不能胜任工作的；</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>8、乙方患病或非因工负伤、医疗期满后，不能从事原工作也不能从事甲方另行安排的工作的；</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>9、劳动合同订立时依据的客观情况发生重大变化，致使劳动合同无法履行，经当事人协商不能就变更劳动合同达成协议的。</w:t>
+      </w:r>
+    </w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>第十三条 甲方按照第十二条第7、8、9款的规定解除本合同时，应提前三十日以书面形式通知乙方。</w:t></w:r></w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>第十三条 乙方欲解除劳动合同，应当提前三十日以书面形式通知甲方，甲方在乙方完成业务以及清理完所办理的债权债务的情况下，应当解除劳动合同。</w:t></w:r></w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第十四条 有下列情形之一，乙方可以随时通知甲方解除本合同。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>1、在试用期内的；</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">2、甲方以侵害乙方合法人身权利手段强迫劳动的； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>3、甲方不能按照本合同规定支付劳动报酬或者提供劳动条件的；</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">4、甲方违反国家有关规定，劳动安全卫生条件恶劣，严重危害乙方身体健康的； </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="559" w:leftChars="266"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>5、法律、法规规定的其他情形。</w:t>
+      </w:r>
+    </w:p>
+    <w:p><w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr><w:r><w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr><w:t>第十五条 本合同期限届满，劳动关系即终止。甲乙双方经协商同意，可以续订劳动合同。双方当事人应当在本合同期满前 30天向对方表示续订意向。续订劳动合同的，应在本合同期满前 30日内完成书面续订手续。</w:t></w:r></w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>第十六条 订立无固定期限劳动合同的，乙方达到法定退休年龄或甲乙双方约定的其他终止条件出现，本合同终止。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>本合同一式两份，甲乙双方各执一份。合同自签订之日起生效，具有同等法律效力。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">甲方（盖章）             法定代表人 （签章）或委托代理人 </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="560" w:firstLineChars="200"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t xml:space="preserve">乙方（签字）        </w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:left="3360" w:leftChars="1600"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="1260" w:firstLineChars="450" w:left="3360" w:leftChars="1600"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+        <w:t>签订日期：　　　年　　月　　日</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:pStyle w:val="4"/>
+        <w:spacing w:line="500" w:lineRule="exact"/>
+        <w:ind w:firstLine="1260" w:firstLineChars="450" w:left="3360" w:leftChars="1600"/>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:cs="宋体" w:eastAsia="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="28"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:br w:type="page"/><w:t>本次修改说明</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>1. 在“甲方的基本工资为＿＿＿/月，提成详见公司制度。”所在段落调整了原有表述。</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>2. 在“因乙方违章作业造成甲方财产损失，按甲方有关制度予...”所在段落调整了原有表述。</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>3. 在“第十八条 甲方按照第十七条第7、8、9款的规定解...”所在段落调整了原有表述。</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>4. 在“乙方欲解除劳动合同，应当提前三十日以书面形式通知...”所在段落调整了原有表述。</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>5. 在“在法定工作时间内，乙方完成规定的工作任务，甲方应...”所在段落补充了说明内容。</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>6. 在“履行保守甲方商业秘密，不得利用甲方的商业秘密为本...”所在段落调整了原有表述。</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>7. 在“本合同期限为＿＿＿＿年。本合同生效日期＿＿＿年＿...”所在段落补充了说明内容。</w:t></w:r></w:p><w:p><w:pPr><w:ind w:firstLine="0" w:hanging="0" w:left="0" w:right="0"/></w:pPr><w:r><w:t>8. 在“甲乙双方经协商同意，可以续订劳动合同。双方当事人...”所在段落补充了说明内容。</w:t></w:r></w:p><w:sectPr>
+      <w:headerReference r:id="rId3" w:type="default"/>
+      <w:footerReference r:id="rId4" w:type="default"/>
+      <w:footerReference r:id="rId5" w:type="even"/>
+      <w:pgSz w:h="16838" w:w="11906"/>
+      <w:pgMar w:bottom="1134" w:footer="992" w:gutter="0" w:header="851" w:left="1418" w:right="1418" w:top="1134"/>
+      <w:cols w:num="1" w:space="720"/>
+      <w:docGrid w:charSpace="0" w:linePitch="312" w:type="lines"/>
+    </w:sectPr>
+  </w:body>
+</w:document>
