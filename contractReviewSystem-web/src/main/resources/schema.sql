@@ -77,6 +77,7 @@ JOIN sys_permission p ON p.permission_code IN (
     'file:upload',
     'file:download',
     'file:list',
+    'file:delete',
     'file:record:create',
     'review:modify'
 )
@@ -103,9 +104,36 @@ CREATE TABLE IF NOT EXISTS file_storage (
     file_name VARCHAR(255) NOT NULL COMMENT '文件名',
     file_path VARCHAR(1024) NOT NULL COMMENT '持久化文件地址',
     file_category VARCHAR(32) NOT NULL COMMENT '文件分类: uploaded/modified',
+    file_status VARCHAR(32) NOT NULL DEFAULT 'active' COMMENT '文件状态: active/expired/deleted/temp',
     source_file_id BIGINT DEFAULT NULL COMMENT '原始文件ID, 修改后文件可关联原文件',
+    file_size BIGINT DEFAULT NULL COMMENT '文件大小, 单位字节',
+    content_type VARCHAR(128) DEFAULT NULL COMMENT '文件 MIME 类型',
+    expire_time DATETIME DEFAULT NULL COMMENT '临时文件过期时间',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '软删除标记: 0未删除 1已删除',
     create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     CONSTRAINT fk_file_storage_user FOREIGN KEY (user_id) REFERENCES sys_user (id),
     CONSTRAINT fk_file_storage_source FOREIGN KEY (source_file_id) REFERENCES file_storage (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文件存储地址表';
+CREATE TABLE IF NOT EXISTS review_task (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT 'review task id',
+    user_id BIGINT NOT NULL COMMENT 'owner user id',
+    source_file_id BIGINT NOT NULL COMMENT 'source file id',
+    result_file_id BIGINT DEFAULT NULL COMMENT 'result file id',
+    task_type VARCHAR(32) NOT NULL COMMENT 'task type',
+    status VARCHAR(32) NOT NULL COMMENT 'pending/running/success/failed',
+    progress TINYINT NOT NULL DEFAULT 0 COMMENT 'progress 0-100',
+    perspective VARCHAR(32) DEFAULT NULL COMMENT 'review perspective',
+    user_focus TEXT DEFAULT NULL COMMENT 'user focus',
+    risk_report LONGTEXT DEFAULT NULL COMMENT 'risk report',
+    generated_requirement LONGTEXT DEFAULT NULL COMMENT 'generated requirement',
+    error_message TEXT DEFAULT NULL COMMENT 'error message',
+    create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create time',
+    update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update time',
+    KEY idx_review_task_user_time (user_id, create_time),
+    KEY idx_review_task_status (status),
+    KEY idx_review_task_source_file (source_file_id),
+    CONSTRAINT fk_review_task_user FOREIGN KEY (user_id) REFERENCES sys_user (id),
+    CONSTRAINT fk_review_task_source_file FOREIGN KEY (source_file_id) REFERENCES file_storage (id),
+    CONSTRAINT fk_review_task_result_file FOREIGN KEY (result_file_id) REFERENCES file_storage (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='review task table';

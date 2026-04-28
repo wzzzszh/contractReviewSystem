@@ -3,6 +3,7 @@ package com.szh.contractReviewSystem.agent.docx;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szh.contractReviewSystem.config.ArkConfig;
+import com.szh.contractReviewSystem.config.FileLifecycleProperties;
 import com.volcengine.ark.runtime.model.completion.chat.ChatCompletionRequest;
 import com.volcengine.ark.runtime.model.completion.chat.ChatMessage;
 import com.volcengine.ark.runtime.model.completion.chat.ChatMessageRole;
@@ -34,6 +35,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,11 +52,15 @@ public class DocxSkillAgentService {
 
     private final DocxSkillAgentProperties properties;
     private final ArkConfig arkConfig;
+    private final FileLifecycleProperties fileLifecycleProperties;
     private final DocxFileTools docxFileTools = new DocxFileTools();
 
-    public DocxSkillAgentService(DocxSkillAgentProperties properties, ArkConfig arkConfig) {
+    public DocxSkillAgentService(DocxSkillAgentProperties properties,
+                                 ArkConfig arkConfig,
+                                 FileLifecycleProperties fileLifecycleProperties) {
         this.properties = properties;
         this.arkConfig = arkConfig;
+        this.fileLifecycleProperties = fileLifecycleProperties;
     }
 
     /**
@@ -130,6 +137,7 @@ public class DocxSkillAgentService {
 
             return new ModifyDocumentResult(
                     normalizedOutput,
+                    runDirectory,
                     patchPlanFile,
                     buildResultMessage(normalizedOutput, patchPlanFile, patchApplyResult),
                     patchApplyResult.appliedCount(),
@@ -146,13 +154,23 @@ public class DocxSkillAgentService {
      * 创建工作目录
      */
     private Path createRunDirectory(Path outputParent) throws IOException {
-        // 确定基础目录
-        Path baseDirectory = outputParent != null
-                ? outputParent.resolve("docx-agent-work")
-                : Path.of(System.getProperty("java.io.tmpdir"), "docx-agent-work");
-        Path runDirectory = baseDirectory.resolve(UUID.randomUUID().toString());
+        Path baseDirectory = resolveDocxAgentWorkRoot()
+                .resolve(LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
+        Path runDirectory = baseDirectory.resolve("task-" + UUID.randomUUID());
         Files.createDirectories(runDirectory);
         return runDirectory;
+    }
+
+    private Path resolveDocxAgentWorkRoot() {
+        String configured = fileLifecycleProperties == null ? null : fileLifecycleProperties.getDocxAgentWorkRoot();
+        if (isBlank(configured)) {
+            configured = "work/docx-agent";
+        }
+        Path path = Path.of(configured);
+        if (path.isAbsolute()) {
+            return path.toAbsolutePath().normalize();
+        }
+        return Path.of(System.getProperty("user.dir"), configured).toAbsolutePath().normalize();
     }
 
     /**
@@ -1059,6 +1077,7 @@ public class DocxSkillAgentService {
 
     public record ModifyDocumentResult(
             Path outputDocument,
+            Path workDirectory,
             Path patchPlanFile,
             String message,
             int appliedOperationCount,

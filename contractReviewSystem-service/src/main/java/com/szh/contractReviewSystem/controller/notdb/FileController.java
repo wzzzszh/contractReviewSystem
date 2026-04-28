@@ -50,7 +50,13 @@ public class FileController extends BaseController {
         String filePath = fileStorageService.uploadForUser(userId, file);
         String originalFilename = file == null ? null : file.getOriginalFilename();
         FileStorageEntity record =
-                fileStorageRecordService.createUploadedFileRecord(userId, originalFilename, filePath);
+                fileStorageRecordService.createUploadedFileRecord(
+                        userId,
+                        originalFilename,
+                        filePath,
+                        file == null ? null : file.getSize(),
+                        file == null ? null : file.getContentType()
+                );
         return success("当前用户文件上传成功", record);
     }
 

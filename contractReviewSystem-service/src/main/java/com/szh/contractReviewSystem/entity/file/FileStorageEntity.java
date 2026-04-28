@@ -17,7 +17,17 @@ public class FileStorageEntity {
 
     private String fileCategory;
 
+    private String fileStatus;
+
     private Long sourceFileId;
+
+    private Long fileSize;
+
+    private String contentType;
+
+    private LocalDateTime expireTime;
+
+    private Integer deleted;
 
     private LocalDateTime createTime;
 

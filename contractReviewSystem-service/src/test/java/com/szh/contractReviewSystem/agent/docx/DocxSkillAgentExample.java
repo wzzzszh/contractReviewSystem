@@ -1,6 +1,7 @@
 package com.szh.contractReviewSystem.agent.docx;
 
 import com.szh.contractReviewSystem.config.ArkConfig;
+import com.szh.contractReviewSystem.config.FileLifecycleProperties;
 import com.szh.contractReviewSystem.llm.ark.ArkConfigLoader;
 import com.szh.contractReviewSystem.testsupport.TestResourceFiles;
 
@@ -38,7 +39,11 @@ public class DocxSkillAgentExample {
         arkConfig.setApiKey(properties.getApiKey());
         arkConfig.setModel(properties.getModel());
 
-        DocxSkillAgentService agentService = new DocxSkillAgentService(properties, arkConfig);
+        DocxSkillAgentService agentService = new DocxSkillAgentService(
+                properties,
+                arkConfig,
+                new FileLifecycleProperties()
+        );
 
         Path input = TestResourceFiles.require(SAMPLE_DOCX)
                 .toPath()

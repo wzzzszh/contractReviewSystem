@@ -4,11 +4,15 @@ import com.szh.contractReviewSystem.agent.docx.DocxSkillAgentService;
 import com.szh.contractReviewSystem.agent.docx.model.DocxModifyPerspective;
 import com.szh.contractReviewSystem.agent.docx.model.DocxModifyRequest;
 import com.szh.contractReviewSystem.agent.docx.model.DocxModifyResponse;
+import com.szh.contractReviewSystem.config.FileLifecycleProperties;
 import com.szh.contractReviewSystem.exception.BusinessExceptionEnum;
 import com.szh.contractReviewSystem.exception.CustomException;
+import com.szh.contractReviewSystem.service.db.FileStorageRecordService;
+import com.szh.contractReviewSystem.utils.UserContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
@@ -19,10 +23,16 @@ public class DocxDocumentService {
 
     private final DocxSkillAgentService docxSkillAgentService;
     private final Map<DocxModifyPerspective, DocxReviewSuggestionService> suggestionServices;
+    private final FileStorageRecordService fileStorageRecordService;
+    private final FileLifecycleProperties fileLifecycleProperties;
 
     public DocxDocumentService(DocxSkillAgentService docxSkillAgentService,
-                               List<DocxReviewSuggestionService> suggestionServices) {
+                               List<DocxReviewSuggestionService> suggestionServices,
+                               FileStorageRecordService fileStorageRecordService,
+                               FileLifecycleProperties fileLifecycleProperties) {
         this.docxSkillAgentService = docxSkillAgentService;
+        this.fileStorageRecordService = fileStorageRecordService;
+        this.fileLifecycleProperties = fileLifecycleProperties;
         this.suggestionServices = new EnumMap<>(DocxModifyPerspective.class);
         for (DocxReviewSuggestionService suggestionService : suggestionServices) {
             DocxReviewSuggestionService existing =
@@ -55,6 +65,7 @@ public class DocxDocumentService {
         // 5. 将修改要求交给 DOCX 补丁管线，真正修改 Word 文档。
         DocxSkillAgentService.ModifyDocumentResult modifyResult =
                 docxSkillAgentService.modifyDocument(inputPath, outputPath, generatedRequirement);
+        registerAgentWorkDirectory(modifyResult.workDirectory());
 
         // 6. 返回修改结果，同时把风险提示和最终修改要求回传，方便前端展示和排查。
         DocxModifyResponse response = new DocxModifyResponse();
@@ -71,6 +82,15 @@ public class DocxDocumentService {
         response.setWarningMessage(modifyResult.warningMessage());
         response.setResultMessage(modifyResult.message());
         return response;
+    }
+
+    private void registerAgentWorkDirectory(Path workDirectory) {
+        Long userId = UserContextHolder.getUserId();
+        if (userId == null || workDirectory == null) {
+            return;
+        }
+        LocalDateTime expireTime = LocalDateTime.now().plusHours(fileLifecycleProperties.getTempTtlHours());
+        fileStorageRecordService.createAgentWorkRecord(userId, workDirectory, expireTime);
     }
 
     private DocxReviewSuggestionService getSuggestionService(DocxModifyPerspective perspective) {

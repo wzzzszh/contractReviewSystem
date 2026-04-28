@@ -58,6 +58,13 @@ system:
   addressEnabled: true
   demoMode: false
 
+file:
+  lifecycle:
+    cleanup-enabled: true
+    temp-ttl-hours: 1
+    cleanup-cron: 0 0 * * * *
+    docx-agent-work-root: work/docx-agent
+
 ark:
   apiKey: fdd9c300-621c-42e8-a6c6-c946bb956006
   baseUrl: https://ark.cn-beijing.volces.com/api/v3
