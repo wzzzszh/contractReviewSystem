@@ -21,6 +21,8 @@ public class DocxSkillAgentProperties {
     private Integer maxStdOutChars = 20000;
     private Integer maxStdErrChars = 12000;
     private Long timeoutSeconds = 90L;
+    private Integer patchPlanMaxAttempts = 3;
+    private Integer patchMinAppliedOperations = 1;
 
     public boolean isEnabled() {
         return enabled;
@@ -132,5 +134,21 @@ public class DocxSkillAgentProperties {
 
     public void setTimeoutSeconds(Long timeoutSeconds) {
         this.timeoutSeconds = timeoutSeconds;
+    }
+
+    public Integer getPatchPlanMaxAttempts() {
+        return patchPlanMaxAttempts;
+    }
+
+    public void setPatchPlanMaxAttempts(Integer patchPlanMaxAttempts) {
+        this.patchPlanMaxAttempts = patchPlanMaxAttempts;
+    }
+
+    public Integer getPatchMinAppliedOperations() {
+        return patchMinAppliedOperations;
+    }
+
+    public void setPatchMinAppliedOperations(Integer patchMinAppliedOperations) {
+        this.patchMinAppliedOperations = patchMinAppliedOperations;
     }
 }

@@ -69,6 +69,17 @@ ark:
   apiKey: fdd9c300-621c-42e8-a6c6-c946bb956006
   baseUrl: https://ark.cn-beijing.volces.com/api/v3
   model: ep-20260331203014-58mf4
+  models:
+    - ep-20260331203014-58mf4
+    - doubao-seed-2-0-code-preview-260215
+deepseek:
+  apiKey: sk-e5b36b0916ce43a9a11e1a5e76fb110e
+  baseUrl: https://api.deepseek.com
+  model: deepseek-v4-flash
+  thinking-enabled: false
+llm:
+  provider: ${LLM_PROVIDER:auto}
+  sticky-fallback: true
 docx-agent:
   enabled: true
   baseUrl: ${ark.baseUrl}
@@ -84,6 +95,8 @@ docx-agent:
   maxStdOutChars: 20000
   maxStdErrChars: 12000
   timeoutSeconds: 90
+  patchPlanMaxAttempts: 3
+  patchMinAppliedOperations: 1
 
 mybatis:
   configuration:

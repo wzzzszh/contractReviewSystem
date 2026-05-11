@@ -2,7 +2,12 @@ package com.szh.contractReviewSystem.agent.docx;
 
 import com.szh.contractReviewSystem.config.ArkConfig;
 import com.szh.contractReviewSystem.config.FileLifecycleProperties;
-import com.szh.contractReviewSystem.llm.ark.ArkConfigLoader;
+import com.szh.contractReviewSystem.config.DeepSeekConfig;
+import com.szh.contractReviewSystem.config.LlmRoutingConfig;
+import com.szh.contractReviewSystem.llm.LlmEndpointResolver;
+import com.szh.contractReviewSystem.llm.LlmProvider;
+import com.szh.contractReviewSystem.llm.LlmProviderState;
+import com.szh.contractReviewSystem.llm.LlmServiceFactory;
 import com.szh.contractReviewSystem.testsupport.TestResourceFiles;
 
 import java.nio.file.Path;
@@ -15,16 +20,6 @@ public class DocxSkillAgentExample {
 
     public static void main(String[] args) {
         DocxSkillAgentProperties properties = new DocxSkillAgentProperties();
-        properties.setApiKey(firstNonBlank(
-                System.getProperty("ark.api-key"),
-                System.getenv("ARK_API_KEY"),
-                safeGetApiKey()
-        ));
-        properties.setModel(firstNonBlank(
-                System.getProperty("ark.model"),
-                System.getenv("ARK_MODEL"),
-                safeGetModel()
-        ));
         properties.setSkillPath(firstNonBlank(
                 System.getProperty("docx.agent.skill-path"),
                 System.getenv("DOCX_AGENT_SKILL_PATH")
@@ -36,12 +31,59 @@ public class DocxSkillAgentExample {
         ));
 
         ArkConfig arkConfig = new ArkConfig();
-        arkConfig.setApiKey(properties.getApiKey());
-        arkConfig.setModel(properties.getModel());
+        arkConfig.setApiKey(firstNonBlank(
+                System.getProperty("ark.api-key"),
+                System.getenv("ARK_API_KEY")
+        ));
+        arkConfig.setModel(firstNonBlank(
+                System.getProperty("ark.model"),
+                System.getenv("ARK_MODEL")
+        ));
+        arkConfig.setBaseUrl(firstNonBlank(
+                System.getProperty("ark.base-url"),
+                System.getenv("ARK_BASE_URL"),
+                "https://ark.cn-beijing.volces.com/api/v3"
+        ));
+
+        LlmRoutingConfig routingConfig = new LlmRoutingConfig();
+        routingConfig.setProvider(firstNonBlank(
+                System.getProperty("llm.provider"),
+                System.getenv("LLM_PROVIDER"),
+                "auto"
+        ));
+        DeepSeekConfig deepSeekConfig = new DeepSeekConfig();
+        deepSeekConfig.setApiKey(firstNonBlank(
+                System.getProperty("deepseek.api-key"),
+                System.getenv("DEEPSEEK_API_KEY")
+        ));
+        deepSeekConfig.setModel(firstNonBlank(
+                System.getProperty("deepseek.model"),
+                System.getenv("DEEPSEEK_MODEL"),
+                "deepseek-v4-flash"
+        ));
+        deepSeekConfig.setBaseUrl(firstNonBlank(
+                System.getProperty("deepseek.base-url"),
+                System.getenv("DEEPSEEK_BASE_URL"),
+                "https://api.deepseek.com"
+        ));
+
+        LlmProviderState providerState = new LlmProviderState(
+                routingConfig.getProviderMode() == LlmRoutingConfig.ProviderMode.DEEPSEEK
+                        ? LlmProvider.DEEPSEEK
+                        : LlmProvider.ARK
+        );
+        LlmEndpointResolver resolver = new LlmEndpointResolver(
+                routingConfig,
+                arkConfig,
+                deepSeekConfig,
+                properties,
+                providerState
+        );
 
         DocxSkillAgentService agentService = new DocxSkillAgentService(
                 properties,
-                arkConfig,
+                LlmServiceFactory.tryCreateDefault(),
+                resolver,
                 new FileLifecycleProperties()
         );
 
@@ -67,22 +109,6 @@ public class DocxSkillAgentExample {
 
         System.out.println(result == null ? "Agent 没有返回文本。 " : result.message());
 
-    }
-
-    private static String safeGetApiKey() {
-        try {
-            return ArkConfigLoader.getApiKey();
-        } catch (Exception ignored) {
-            return null;
-        }
-    }
-
-    private static String safeGetModel() {
-        try {
-            return ArkConfigLoader.getModel();
-        } catch (Exception ignored) {
-            return null;
-        }
     }
 
     private static String firstNonBlank(String... values) {

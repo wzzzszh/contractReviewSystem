@@ -1,11 +1,7 @@
 package com.szh.contractReviewSystem.service.docx;
 
 import com.szh.contractReviewSystem.agent.docx.DocxSkillAgentProperties;
-import com.szh.contractReviewSystem.config.ArkConfig;
-import com.volcengine.ark.runtime.model.completion.chat.ChatCompletionRequest;
-import com.volcengine.ark.runtime.model.completion.chat.ChatMessage;
-import com.volcengine.ark.runtime.model.completion.chat.ChatMessageRole;
-import com.volcengine.ark.runtime.service.ArkService;
+import com.szh.contractReviewSystem.llm.LLMService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -22,66 +18,46 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
 
     private static final int MAX_CONTRACT_TEXT_LENGTH = 16000;
 
-    private final DocxSkillAgentProperties properties;
-    private final ArkConfig arkConfig;
+    private final LLMService llmService;
     private final LegalContractRiskReviewService legalContractRiskReviewService;
 
     protected AbstractDocxReviewSuggestionService(DocxSkillAgentProperties properties,
-                                                  ArkConfig arkConfig,
+                                                  LLMService llmService,
                                                   LegalContractRiskReviewService legalContractRiskReviewService) {
-        this.properties = properties;
-        this.arkConfig = arkConfig;
+        this.llmService = llmService;
         this.legalContractRiskReviewService = legalContractRiskReviewService;
     }
 
     @Override
     public DocxReviewSuggestionResult generateModificationRequirement(Path inputPath, String userFocus) {
-        // 1. 从 DOCX 中抽取纯文本，供风险审查和修改要求生成共同使用。
+        return generateModificationRequirement(inputPath, userFocus, ReviewProgressReporter.NOOP);
+    }
+
+    @Override
+    public DocxReviewSuggestionResult generateModificationRequirement(Path inputPath,
+                                                                      String userFocus,
+                                                                      ReviewProgressReporter progressReporter) {
+        ReviewProgressReporter reporter = progressReporter == null ? ReviewProgressReporter.NOOP : progressReporter;
+        reporter.updateProgress(20);
         String contractText = extractContractText(inputPath);
 
-        // 2. 先按 .trae 法律合同风险技能生成结构化风险提示。
+        reporter.updateProgress(35);
         String riskReviewReport = legalContractRiskReviewService.generateRiskReview(contractText, userFocus);
 
-        // 3. 再把风险提示、合同原文、用户关注点一起交给大模型，生成可执行修改要求。
-        ResolvedConfig config = resolveConfig();
-        ArkService arkService = ArkService.builder()
-                .baseUrl(config.baseUrl())
-                .apiKey(config.apiKey())
-                .build();
+        reporter.updateProgress(50);
         try {
-            List<ChatMessage> messages = new ArrayList<>();
-            messages.add(ChatMessage.builder()
-                    .role(ChatMessageRole.SYSTEM)
-                    .content(buildSystemPrompt())
-                    .build());
-            messages.add(ChatMessage.builder()
-                    .role(ChatMessageRole.USER)
-                    .content(buildUserPrompt(contractText, userFocus, riskReviewReport))
-                    .build());
-
-            ChatCompletionRequest request = ChatCompletionRequest.builder()
-                    .model(config.model())
-                    .messages(messages)
-                    .build();
-
-            StringBuilder result = new StringBuilder();
-            arkService.createChatCompletion(request)
-                    .getChoices()
-                    .forEach(choice -> {
-                        if (choice.getMessage() != null && choice.getMessage().getContent() != null) {
-                            result.append(choice.getMessage().getContent());
-                        }
-                    });
-
-            String requirement = result.toString().trim();
+            String requirement = llmService.call(
+                    buildSystemPrompt(),
+                    buildUserPrompt(contractText, userFocus, riskReviewReport)
+            ).trim();
             if (isBlank(requirement)) {
                 throw new IllegalStateException("AI did not generate modification requirements");
             }
 
-            // 4. 同时返回风险提示报告和最终修改要求，后续补丁管线只使用修改要求。
+            reporter.updateProgress(60);
             return new DocxReviewSuggestionResult(riskReviewReport, requirement);
-        } finally {
-            arkService.shutdownExecutor();
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to generate modification requirements", e);
         }
     }
 
@@ -99,7 +75,7 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
                 4. 最多输出 8 条可执行修改。
                 5. 每条修改都必须引用合同原文中真实存在的锚点片段，便于后续代码定位段落。
                 6. 明确说明在该锚点附近“补充、替换、细化或删除”什么内容。
-                7. 不得虚构金额、日期、比例、期限、主体名称；缺失时只能要求补充或明确。
+                7. 不得虚构金额、日期、比例、期限或主体名称；缺失时只能要求补充或明确。
                 8. 优先关注付款、范围、交付、验收、违约、解除、保密、知识产权、责任分配、配合义务、争议解决。
 
                 推荐格式：
@@ -131,7 +107,6 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
              XWPFDocument document = new XWPFDocument(inputStream)) {
             StringBuilder text = new StringBuilder();
 
-            // 先提取普通段落文本。
             for (XWPFParagraph paragraph : document.getParagraphs()) {
                 String paragraphText = normalizeText(paragraph.getText());
                 if (!paragraphText.isEmpty()) {
@@ -139,7 +114,6 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
                 }
             }
 
-            // 再提取表格文本；单元格用竖线分隔，尽量保留表格中的语义关系。
             for (XWPFTable table : document.getTables()) {
                 for (XWPFTableRow row : table.getRows()) {
                     List<String> cells = new ArrayList<>();
@@ -156,7 +130,6 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
                 text.append("\n");
             }
 
-            // 控制输入长度，避免一次请求超过模型上下文。
             String contractText = text.toString().trim();
             if (contractText.length() > MAX_CONTRACT_TEXT_LENGTH) {
                 return contractText.substring(0, MAX_CONTRACT_TEXT_LENGTH);
@@ -165,34 +138,6 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
         } catch (Exception e) {
             throw new IllegalStateException("Failed to read DOCX contract text: " + inputPath, e);
         }
-    }
-
-    private ResolvedConfig resolveConfig() {
-        String apiKey = firstNonBlank(
-                properties.getApiKey(),
-                arkConfig.getApiKey(),
-                System.getProperty("ark.api-key"),
-                System.getenv("ARK_API_KEY")
-        );
-        String model = firstNonBlank(
-                properties.getModel(),
-                arkConfig.getModel(),
-                System.getProperty("ark.model"),
-                System.getenv("ARK_MODEL")
-        );
-        String baseUrl = firstNonBlank(
-                properties.getBaseUrl(),
-                arkConfig.getBaseUrl(),
-                "https://ark.cn-beijing.volces.com/api/v3"
-        );
-
-        if (isBlank(apiKey)) {
-            throw new IllegalStateException("Missing Ark API key. Configure docx-agent.apiKey or ark.apiKey");
-        }
-        if (isBlank(model)) {
-            throw new IllegalStateException("Missing Ark model. Configure docx-agent.model or ark.model");
-        }
-        return new ResolvedConfig(apiKey, model, baseUrl);
     }
 
     private String normalizeText(String text) {
@@ -206,22 +151,7 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
                 .trim();
     }
 
-    private String firstNonBlank(String... values) {
-        if (values == null) {
-            return null;
-        }
-        for (String value : values) {
-            if (!isBlank(value)) {
-                return value.trim();
-            }
-        }
-        return null;
-    }
-
     private boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
-    }
-
-    private record ResolvedConfig(String apiKey, String model, String baseUrl) {
     }
 }

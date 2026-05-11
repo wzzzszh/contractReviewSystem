@@ -4,7 +4,6 @@ import com.szh.contractReviewSystem.document.model.MarkdownResult;
 import com.szh.contractReviewSystem.document.model.ParseContext;
 import com.szh.contractReviewSystem.document.parser.pdf.AiPdfParser;
 import com.szh.contractReviewSystem.llm.LLMService;
-import com.szh.contractReviewSystem.llm.ark.ArkLLMService;
 import com.szh.contractReviewSystem.review.contract.prompt.ContractReviewPromptTemplate;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -153,9 +152,7 @@ public class ContractRiskReviewer {
      * 关闭底层大模型服务中可能存在的资源。
      */
     public void shutdown() {
-        if (llmService instanceof ArkLLMService) {
-            ((ArkLLMService) llmService).shutdown();
-        }
+        llmService.shutdown();
     }
 
     /**

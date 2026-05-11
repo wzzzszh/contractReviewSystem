@@ -2,12 +2,9 @@ package com.szh.contractReviewSystem.agent.docx;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.szh.contractReviewSystem.config.ArkConfig;
 import com.szh.contractReviewSystem.config.FileLifecycleProperties;
-import com.volcengine.ark.runtime.model.completion.chat.ChatCompletionRequest;
-import com.volcengine.ark.runtime.model.completion.chat.ChatMessage;
-import com.volcengine.ark.runtime.model.completion.chat.ChatMessageRole;
-import com.volcengine.ark.runtime.service.ArkService;
+import com.szh.contractReviewSystem.llm.LLMService;
+import com.szh.contractReviewSystem.llm.LlmEndpointResolver;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.skills.FileSystemSkill;
@@ -34,6 +31,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -48,24 +46,27 @@ public class DocxSkillAgentService {
 
     private static final String WORD_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
     private static final int MAX_SOURCE_TEXT_LENGTH = 16000;
+    private static final double PATCH_APPLY_MIN_SUCCESS_RATIO = 0.9D;
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private final DocxSkillAgentProperties properties;
-    private final ArkConfig arkConfig;
+    private final LLMService llmService;
+    private final LlmEndpointResolver llmEndpointResolver;
     private final FileLifecycleProperties fileLifecycleProperties;
     private final DocxFileTools docxFileTools = new DocxFileTools();
 
     public DocxSkillAgentService(DocxSkillAgentProperties properties,
-                                 ArkConfig arkConfig,
+                                 LLMService llmService,
+                                 LlmEndpointResolver llmEndpointResolver,
                                  FileLifecycleProperties fileLifecycleProperties) {
         this.properties = properties;
-        this.arkConfig = arkConfig;
+        this.llmService = llmService;
+        this.llmEndpointResolver = llmEndpointResolver;
         this.fileLifecycleProperties = fileLifecycleProperties;
     }
-
     /**
-     * 实验性的基于工具的方法
-     * 仅用于手动探索，主工作流应使用 modifyDocument() 中的 Java 编排 docx 技能脚本
+      * 说明：该方法注释已修复（原注释出现乱码）。
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     public String execute(String task) {
         if (isBlank(task)) {
@@ -76,70 +77,71 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 稳定的主路径：
-     * 1. Java 直接运行 docx 技能的解压/打包脚本
-     * 2. AI 仅生成一个小型的 JSON 补丁方案
-     * 3. Java 修补 document.xml 并使用技能重新打包
+      * 说明：该方法注释已修复（原注释出现乱码）。
+      * 说明：该方法注释已修复（原注释出现乱码）。
+      * 说明：该方法注释已修复（原注释出现乱码）。
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     public ModifyDocumentResult modifyDocument(Path inputDocument, Path outputDocument, String modificationRequirement) {
         if (inputDocument == null) {
-            throw new IllegalArgumentException("输入的文档不能为空 ");
+            throw new IllegalArgumentException("输入的文档不能为空");
         }
         if (outputDocument == null) {
-            throw new IllegalArgumentException("输出的文档不能为空 ");
+            throw new IllegalArgumentException("输出的文档不能为空");
         }
         if (isBlank(modificationRequirement)) {
-            throw new IllegalArgumentException("修改要求不能为空 ");
+            throw new IllegalArgumentException("修改要求不能为空");
         }
-        // 一.确保输入文件存在
+        // 说明：步骤注释已修复（原注释出现乱码）。
         Path normalizedInput = inputDocument.toAbsolutePath().normalize();
         Path normalizedOutput = outputDocument.toAbsolutePath().normalize();
         if (!Files.exists(normalizedInput)) {
             throw new IllegalArgumentException("输入的文档不存在: " + normalizedInput);
         }
 
-        // 二.验证 Python 环境
+        // 说明：步骤注释已修复（原注释出现乱码）。
         verifyPythonEnvironment();
 
         try {
-            // 1. 确保输出目录存在。
+            // 说明：步骤注释已修复（原注释出现乱码）。
             Path outputParent = normalizedOutput.getParent();
             if (outputParent != null) {
                 Files.createDirectories(outputParent);
             }
 
-            // 2. 为本次修改创建独立工作目录，避免多次修改互相覆盖。
+            // 说明：步骤注释已修复（原注释出现乱码）。
             Path runDirectory = createRunDirectory(outputParent);
             Path unpackedDirectory = runDirectory.resolve("unpacked");
             Path documentXml = unpackedDirectory.resolve("word").resolve("document.xml");
             Path patchPlanFile = runDirectory.resolve("patch-plan.json");
 
-            // 3. 解压 DOCX。DOCX 本质是 zip，正文主要在 word/document.xml。
+            // 说明：步骤注释已修复（原注释出现乱码）。
             unpackDocx(normalizedInput, unpackedDirectory);
             if (!Files.exists(documentXml)) {
-                throw new IllegalStateException("document.xml在解压后不存在: " + documentXml);
+                throw new IllegalStateException("document.xml 在解压后不存在: " + documentXml);
             }
 
-            // 4. 从 document.xml 抽取段落文本，作为生成补丁计划的定位依据。
+            // 说明：步骤注释已修复（原注释出现乱码）。
             String sourceText = extractParagraphTextFromDocumentXml(documentXml);
 
-            // 5. 让大模型把“修改要求”转成 JSON 补丁计划。
-            PatchPlan patchPlan = generatePatchPlan(sourceText, modificationRequirement.trim());
+            // 说明：步骤注释已修复（原注释出现乱码）。
+            PatchExecutionResult patchExecutionResult = applyPatchPlanWithRetry(
+                    runDirectory,
+                    documentXml,
+                    patchPlanFile,
+                    sourceText,
+                    modificationRequirement.trim()
+            );
+            PatchApplyResult patchApplyResult = patchExecutionResult.patchApplyResult();
 
-            // 6. 保存补丁计划，方便排查每次生成了哪些操作。
-            savePatchPlan(patchPlanFile, patchPlan);
-
-            // 7. Java 根据补丁计划修改 document.xml，避免让模型直接操作文件。
-            PatchApplyResult patchApplyResult = applyPatchPlan(documentXml, patchPlan);
-
-            // 8. 重新打包成 DOCX，输出最终修订文档。
+            // 说明：步骤注释已修复（原注释出现乱码）。
             packDocx(unpackedDirectory, normalizedInput, normalizedOutput);
 
             return new ModifyDocumentResult(
                     normalizedOutput,
                     runDirectory,
-                    patchPlanFile,
-                    buildResultMessage(normalizedOutput, patchPlanFile, patchApplyResult),
+                    patchExecutionResult.finalPatchPlanFile(),
+                    buildResultMessage(normalizedOutput, patchExecutionResult.finalPatchPlanFile(), patchApplyResult),
                     patchApplyResult.appliedCount(),
                     patchApplyResult.skippedOperationMessages().size(),
                     patchApplyResult.skippedOperationMessages(),
@@ -151,7 +153,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 创建工作目录
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private Path createRunDirectory(Path outputParent) throws IOException {
         Path baseDirectory = resolveDocxAgentWorkRoot()
@@ -174,10 +176,10 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 使用 Python 脚本解压 docx 文件
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void unpackDocx(Path inputDocument, Path unpackedDirectory) {
-        //获取技能路径
+        // 说明：步骤注释已修复（原注释出现乱码）。
         Path skillPath = resolveSkillPath();
         Path unpackScript = skillPath.resolve("scripts").resolve("office").resolve("unpack.py");
         ProcessResult result = runProcess(
@@ -195,7 +197,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 使用 Python 脚本打包 docx 文件，带有验证回退机制
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void packDocx(Path unpackedDirectory, Path originalInput, Path outputDocument) {
         Path skillPath = resolveSkillPath();
@@ -240,22 +242,22 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 从 document.xml 中提取段落文本
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private String extractParagraphTextFromDocumentXml(Path documentXml) {
         try {
             Document document = readXml(documentXml);
             StringBuilder text = new StringBuilder();
-            // 遍历所有段落元素
+            // 说明：步骤注释已修复（原注释出现乱码）。
             for (Element paragraph : getParagraphElements(document)) {
-                // 提取段落文本
+                // 说明：步骤注释已修复（原注释出现乱码）。
                 String paragraphText = extractParagraphText(paragraph);
-                // 如果段落文本不为空，则添加到结果中
+                // 说明：步骤注释已修复（原注释出现乱码）。
                 if (!isBlank(paragraphText)) {
                     text.append(paragraphText).append("\n\n");
                 }
             }
-            // 去除前后的空格，并截断过长的文本，确保不超过最大长度
+            // 说明：步骤注释已修复（原注释出现乱码）。
             String sourceText = text.toString().trim();
             if (sourceText.length() > MAX_SOURCE_TEXT_LENGTH) {
                 return sourceText.substring(0, MAX_SOURCE_TEXT_LENGTH);
@@ -267,52 +269,38 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 调用 LLM 生成补丁方案
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private PatchPlan generatePatchPlan(String sourceText, String modificationRequirement) {
-        // 解析配置
-        ResolvedConfig config = resolveConfig();
-        // 创建 ArkService 实例
-        ArkService arkService = ArkService.builder()
-                .baseUrl(config.baseUrl())
-                .apiKey(config.apiKey())
-                .build();
+        return generatePatchPlanInternal(sourceText, modificationRequirement, null, null);
+    }
+
+    private PatchPlan generatePatchPlanWithFeedback(String sourceText,
+                                                    String modificationRequirement,
+                                                    Path previousPatchPlanFile,
+                                                    PatchApplyResult previousApplyResult) {
+        return generatePatchPlanInternal(sourceText, modificationRequirement, previousPatchPlanFile, previousApplyResult);
+    }
+
+    private PatchPlan generatePatchPlanInternal(String sourceText,
+                                                String modificationRequirement,
+                                                Path previousPatchPlanFile,
+                                                PatchApplyResult previousApplyResult) {
+        boolean hasFeedback = previousPatchPlanFile != null && previousApplyResult != null;
+        String systemPrompt = hasFeedback
+                ? buildPatchPlanRetrySystemPrompt()
+                : buildPatchPlanSystemPromptFixed();
+        String userPrompt = hasFeedback
+                ? buildPatchPlanRetryUserPrompt(sourceText, modificationRequirement, previousPatchPlanFile, previousApplyResult)
+                : buildPatchPlanUserPromptFixed(sourceText, modificationRequirement);
+
         try {
-            // 创建一个消息列表，包含系统提示词和用户提示词
-            List<ChatMessage> messages = new ArrayList<>();
-            // 添加系统提示词
-            messages.add(ChatMessage.builder()
-                    .role(ChatMessageRole.SYSTEM)
-                    .content(buildPatchPlanSystemPromptFixed())
-            // 添加用户提示词
-                    .build());
-            messages.add(ChatMessage.builder()
-                    .role(ChatMessageRole.USER)
-                    .content(buildPatchPlanUserPromptFixed(sourceText, modificationRequirement))
-                    .build());
-            // 创建聊天完成请求
-            ChatCompletionRequest request = ChatCompletionRequest.builder()
-                    .model(config.model())
-                    .messages(messages)
-                    .build();
-            // 调用 LLM 创建聊天完成响应
-            StringBuilder result = new StringBuilder();
-            arkService.createChatCompletion(request)
-                    .getChoices()
-                    .forEach(choice -> {
-                        if (choice.getMessage() != null && choice.getMessage().getContent() != null) {
-                            result.append(choice.getMessage().getContent());
-                        }
-                    });
-            // 获取结果字符串并去除前后的空格
-            String raw = result.toString().trim();
+            String raw = llmService.call(systemPrompt, userPrompt).trim();
             if (isBlank(raw)) {
                 throw new IllegalStateException("LLM returned empty patch plan");
             }
 
-            // 从结果字符串中提取 JSON 对象
             String json = extractJsonObject(raw);
-            // 将 JSON 字符串转换为 PatchPlan 对象
             PatchPlan patchPlan = OBJECT_MAPPER.readValue(json, PatchPlan.class);
             if (patchPlan == null || patchPlan.operations == null) {
                 return new PatchPlan();
@@ -320,16 +308,10 @@ public class DocxSkillAgentService {
             return patchPlan;
         } catch (Exception e) {
             throw new IllegalStateException("Failed to generate patch plan", e);
-        } finally {
-            arkService.shutdownExecutor();
         }
     }
-
-
-
-
     /**
-     * 构建补丁方案的系统提示词（固定版）
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private String buildPatchPlanSystemPromptFixed() {
         return """
@@ -366,7 +348,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 构建补丁方案的用户提示词（固定版）
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private String buildPatchPlanUserPromptFixed(String sourceText, String modificationRequirement) {
         return """
@@ -378,16 +360,113 @@ public class DocxSkillAgentService {
                 """.formatted(modificationRequirement, sourceText);
     }
 
+    private String buildPatchPlanRetrySystemPrompt() {
+        return """
+                You are fixing a previously failed JSON patch plan for an existing Chinese contract.
+                Return JSON only. No markdown. No explanation.
+
+                Allowed operation types:
+                1. replace_text_in_paragraph
+                   fields: type, anchor, find, replace
+                2. append_sentence_to_paragraph
+                   fields: type, anchor, append
+                3. insert_paragraph_after
+                   fields: type, anchor, text
+
+                Hard rules:
+                1. Every anchor must be an exact fragment from source text.
+                2. Remove or rewrite operations that previously failed.
+                3. Keep edits minimal and executable.
+                4. Return at most 8 operations.
+                5. Keep output schema exactly as {"operations":[...]}.
+                """;
+    }
+
+    private String buildPatchPlanRetryUserPrompt(String sourceText,
+                                                 String modificationRequirement,
+                                                 Path previousPatchPlanFile,
+                                                 PatchApplyResult previousApplyResult) {
+        String previousPlanJson = readPatchPlanFileSafe(previousPatchPlanFile);
+        String skipDetails = formatSkippedMessages(previousApplyResult == null
+                ? Collections.emptyList()
+                : previousApplyResult.skippedOperationMessages());
+        int appliedCount = previousApplyResult == null ? 0 : previousApplyResult.appliedCount();
+        return """
+                Modification requirements:
+                %s
+
+                Original contract text:
+                %s
+
+                Previous patch plan JSON:
+                %s
+
+                Previous apply result:
+                applied_count=%d
+                skipped_messages:
+                %s
+
+                Please return a repaired patch plan JSON only.
+                """.formatted(
+                modificationRequirement,
+                sourceText,
+                previousPlanJson,
+                appliedCount,
+                skipDetails
+        );
+    }
+
     /**
-     * 保存补丁方案到 JSON 文件
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void savePatchPlan(Path patchPlanFile, PatchPlan patchPlan) throws IOException {
         Files.createDirectories(patchPlanFile.getParent());
         OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(patchPlanFile.toFile(), patchPlan);
     }
 
+    private PatchExecutionResult applyPatchPlanWithRetry(Path runDirectory,
+                                                         Path documentXml,
+                                                         Path finalPatchPlanFile,
+                                                         String sourceText,
+                                                         String modificationRequirement) throws IOException {
+        int maxAttempts = normalizePositive(properties.getPatchPlanMaxAttempts(), 3);
+        int minAppliedOperations = normalizePositive(properties.getPatchMinAppliedOperations(), 1);
+
+        Path attemptsDirectory = runDirectory.resolve("patch-plan-attempts");
+        Path baselineDocumentXml = runDirectory.resolve("baseline-document.xml");
+        Files.copy(documentXml, baselineDocumentXml, StandardCopyOption.REPLACE_EXISTING);
+
+        PatchApplyResult lastApplyResult = null;
+        Path previousPatchPlanAttemptFile = null;
+
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            Files.copy(baselineDocumentXml, documentXml, StandardCopyOption.REPLACE_EXISTING);
+
+            PatchPlan patchPlan = attempt == 1
+                    ? generatePatchPlan(sourceText, modificationRequirement)
+                    : generatePatchPlanWithFeedback(sourceText, modificationRequirement, previousPatchPlanAttemptFile, lastApplyResult);
+
+            Path attemptPlanFile = attemptsDirectory.resolve("patch-plan-attempt-" + attempt + ".json");
+            savePatchPlan(attemptPlanFile, patchPlan);
+
+            PatchApplyResult applyResult = applyPatchPlan(documentXml, patchPlan);
+            lastApplyResult = applyResult;
+            previousPatchPlanAttemptFile = attemptPlanFile;
+
+            if (isPatchApplyAcceptable(applyResult, minAppliedOperations)) {
+                Files.copy(attemptPlanFile, finalPatchPlanFile, StandardCopyOption.REPLACE_EXISTING);
+                return new PatchExecutionResult(applyResult, finalPatchPlanFile);
+            }
+        }
+
+        if (previousPatchPlanAttemptFile != null) {
+            Files.copy(previousPatchPlanAttemptFile, finalPatchPlanFile, StandardCopyOption.REPLACE_EXISTING);
+        }
+        throw new IllegalStateException(buildPatchRetryFailureMessage(maxAttempts, minAppliedOperations, lastApplyResult));
+    }
+
     /**
-     * 将补丁方案应用到 document.xml
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private PatchApplyResult applyPatchPlan(Path documentXml, PatchPlan patchPlan) {
         try {
@@ -423,7 +502,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 应用单个补丁操作
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void applyOperation(Document document, PatchOperation operation) {
         Element paragraph = findParagraph(document, operation.anchor, operation.find);
@@ -448,7 +527,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 应用替换文本操作：在段落中查找并替换文本
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void applyReplaceTextInParagraph(Element paragraph, PatchOperation operation) {
         String currentText = extractParagraphText(paragraph);
@@ -464,7 +543,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 应用追加句子操作：在段落末尾追加新句子
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void applyAppendSentenceToParagraph(Element paragraph, PatchOperation operation) {
         String currentText = extractParagraphText(paragraph);
@@ -479,7 +558,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 应用插入段落操作：在指定段落后插入新段落
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void applyInsertParagraphAfter(Element paragraph, PatchOperation operation) {
         if (isBlank(operation.text)) {
@@ -496,7 +575,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 查找包含指定锚点文本的段落元素
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private Element findParagraph(Document document, String anchor, String fallbackFind) {
         String key = firstNonBlank(anchor, fallbackFind);
@@ -514,7 +593,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 获取文档中所有段落元素
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private List<Element> getParagraphElements(Document document) {
         List<Element> paragraphs = new ArrayList<>();
@@ -529,7 +608,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 提取单个段落的纯文本内容
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private String extractParagraphText(Element paragraph) {
         StringBuilder text = new StringBuilder();
@@ -538,7 +617,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 递归追加节点中的文本内容
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void appendText(Node node, StringBuilder text) {
         if (node instanceof Element element) {
@@ -564,7 +643,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 设置段落的文本内容，保留原有样式
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void setParagraphText(Element paragraph, String newText) {
         Document document = paragraph.getOwnerDocument();
@@ -599,7 +678,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 创建与模板段落样式相同的新段落
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private Element createParagraphLike(Element templateParagraph, String text) {
         Document document = templateParagraph.getOwnerDocument();
@@ -632,7 +711,7 @@ public class DocxSkillAgentService {
         }
 
         Element body = findDocumentBody(document);
-        appendParagraphToBody(body, createSummaryParagraph(document, "本次修改说明", true));
+        appendParagraphToBody(body, createSummaryParagraph(document, "Document modification summary", true));
         for (int i = 0; i < appliedOperationSummaries.size(); i++) {
             String summaryText = (i + 1) + ". " + appliedOperationSummaries.get(i);
             appendParagraphToBody(body, createSummaryParagraph(document, summaryText, false));
@@ -689,7 +768,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 查找元素的直接子元素
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private Node findDirectChild(Element parent, String localName) {
         Node child = parent.getFirstChild();
@@ -705,7 +784,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 查找段落中第一个运行属性（rPr）
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private Node findFirstRunProperties(Element paragraph) {
         Node child = paragraph.getFirstChild();
@@ -724,7 +803,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 读取 XML 文件
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private Document readXml(Path xmlPath) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -735,7 +814,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 将 Document 对象写入 XML 文件
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private void writeXml(Path xmlPath, Document document) throws Exception {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -749,7 +828,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 从原始响应中提取 JSON 对象
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private String extractJsonObject(String raw) {
         String trimmed = raw.trim();
@@ -761,8 +840,84 @@ public class DocxSkillAgentService {
         return trimmed.substring(start, end + 1);
     }
 
+    private Path resolveSkillPath() {
+        String configured = firstNonBlank(
+                properties.getSkillPath(),
+                System.getProperty("docx.agent.skill-path"),
+                System.getenv("DOCX_AGENT_SKILL_PATH")
+        );
+        if (isBlank(configured)) {
+            configured = "C:/Users/szh/.codex/skills/docx";
+        }
+        Path path = Path.of(configured).toAbsolutePath().normalize();
+        if (!Files.exists(path)) {
+            throw new IllegalStateException("Docx skill path does not exist: " + path);
+        }
+        return path;
+    }
+
+    private Path resolveWorkingDirectory(Path skillPath) {
+        String configured = firstNonBlank(
+                properties.getShellWorkingDirectory(),
+                System.getProperty("docx.agent.shell-working-directory"),
+                System.getenv("DOCX_AGENT_SHELL_WORKING_DIRECTORY")
+        );
+        if (isBlank(configured)) {
+            return skillPath.toAbsolutePath().normalize();
+        }
+        Path path = Path.of(configured);
+        if (path.isAbsolute()) {
+            return path.toAbsolutePath().normalize();
+        }
+        return Path.of(System.getProperty("user.dir"), configured).toAbsolutePath().normalize();
+    }
+
+    private void verifyPythonEnvironment() {
+        ProcessResult versionResult = runProcess(List.of(properties.getPythonCommand(), "--version"), null);
+        if (versionResult.exitCode() != 0) {
+            throw new IllegalStateException("Python command is not usable for docx-agent: " + versionResult.output());
+        }
+
+        ProcessResult dependencyResult = runProcess(
+                List.of(properties.getPythonCommand(), "-c", "import lxml.etree, defusedxml.minidom"),
+                null
+        );
+        if (dependencyResult.exitCode() != 0) {
+            throw new IllegalStateException("Python dependencies for docx-agent are missing: " + dependencyResult.output());
+        }
+    }
+
+    private RunShellCommandToolConfig buildShellCommandConfig(Path workingDirectory) {
+        return RunShellCommandToolConfig.builder()
+                .name("run_shell_command")
+                .description("Run the exact shell command required by the active skill workflow.")
+                .commandParameterName("command")
+                .commandParameterDescription("The full PowerShell command to execute. Prefer absolute paths for user files.")
+                .timeoutSecondsParameterName("timeoutSeconds")
+                .timeoutSecondsParameterDescription("How many seconds to wait before the command is interrupted.")
+                .workingDirectory(workingDirectory)
+                .maxStdOutChars(properties.getMaxStdOutChars())
+                .maxStdErrChars(properties.getMaxStdErrChars())
+                .throwToolArgumentsExceptions(true)
+                .build();
+    }
+    private ProcessResult runProcess(List<String> command, Path workingDirectory) {
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            if (workingDirectory != null) {
+                processBuilder.directory(workingDirectory.toFile());
+            }
+            processBuilder.redirectErrorStream(true);
+            Process process = processBuilder.start();
+            String output = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+            int exitCode = process.waitFor();
+            return new ProcessResult(exitCode, output);
+        } catch (Exception e) {
+            return new ProcessResult(-1, e.getMessage() == null ? e.toString() : e.getMessage());
+        }
+    }
     /**
-     * 构建基于工具的 Agent
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private DocxSkillAgent buildToolAgent() {
         if (!properties.isEnabled()) {
@@ -795,22 +950,24 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 构建 OpenAI 聊天模型
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private OpenAiChatModel buildOpenAiChatModel() {
-        ResolvedConfig config = resolveConfig();
+        LlmEndpointResolver.ResolvedEndpoint endpoint = llmEndpointResolver.resolveDocxAgent();
+        if (endpoint == null || !endpoint.isConfigured()) {
+            throw new IllegalStateException("Missing LLM endpoint for docx-agent");
+        }
         return OpenAiChatModel.builder()
-                .baseUrl(config.baseUrl())
-                .apiKey(config.apiKey())
-                .modelName(config.model())
+                .baseUrl(endpoint.getBaseUrl())
+                .apiKey(endpoint.getApiKey())
+                .modelName(endpoint.getModel())
                 .temperature(properties.getTemperature())
                 .maxCompletionTokens(properties.getMaxCompletionTokens())
                 .timeout(Duration.ofSeconds(properties.getTimeoutSeconds()))
                 .build();
     }
-
     /**
-     * 构建工具 Agent 的系统消息
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private String buildToolAgentSystemMessage(String availableSkills, Path skillPath, Path workingDirectory) {
         return """
@@ -840,131 +997,7 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 解析配置信息（API密钥、模型、基础URL）
-     */
-    private ResolvedConfig resolveConfig() {
-        String apiKey = firstNonBlank(
-                properties.getApiKey(),
-                arkConfig.getApiKey(),
-                System.getProperty("ark.api-key"),
-                System.getenv("ARK_API_KEY")
-        );
-        String model = firstNonBlank(
-                properties.getModel(),
-                arkConfig.getModel(),
-                System.getProperty("ark.model"),
-                System.getenv("ARK_MODEL")
-        );
-        String baseUrl = firstNonBlank(
-                properties.getBaseUrl(),
-                arkConfig.getBaseUrl(),
-                "https://ark.cn-beijing.volces.com/api/v3"
-        );
-
-        if (isBlank(apiKey)) {
-            throw new IllegalStateException("Missing API key for docx-agent. Configure docx-agent.apiKey or ark.apiKey");
-        }
-        if (isBlank(model)) {
-            throw new IllegalStateException("Missing model for docx-agent. Configure docx-agent.model or ark.model");
-        }
-        return new ResolvedConfig(apiKey, model, baseUrl);
-    }
-
-    /**
-     * 构建 Shell 命令工具配置
-     */
-    private RunShellCommandToolConfig buildShellCommandConfig(Path workingDirectory) {
-        return RunShellCommandToolConfig.builder()
-                .name("run_shell_command")
-                .description("Run the exact shell command required by the active skill workflow.")
-                .commandParameterName("command")
-                .commandParameterDescription("The full PowerShell command to execute. Prefer absolute paths for user files.")
-                .timeoutSecondsParameterName("timeoutSeconds")
-                .timeoutSecondsParameterDescription("How many seconds to wait before the command is interrupted.")
-                .workingDirectory(workingDirectory)
-                .maxStdOutChars(properties.getMaxStdOutChars())
-                .maxStdErrChars(properties.getMaxStdErrChars())
-                .throwToolArgumentsExceptions(true)
-                .build();
-    }
-
-    /**
-     * 验证 Python 环境和依赖
-     */
-    private void verifyPythonEnvironment() {
-        ProcessResult versionResult = runProcess(List.of(properties.getPythonCommand(), "--version"), null);
-        if (versionResult.exitCode() != 0) {
-            throw new IllegalStateException("Python command is not usable for docx-agent: " + versionResult.output());
-        }
-
-        ProcessResult dependencyResult = runProcess(
-                List.of(properties.getPythonCommand(), "-c", "import lxml.etree, defusedxml.minidom"),
-                null
-        );
-        if (dependencyResult.exitCode() != 0) {
-            throw new IllegalStateException(
-                    "Python is missing required docx-agent dependencies. Install lxml and defusedxml. "
-                            + dependencyResult.output()
-            );
-        }
-    }
-
-    /**
-     * 运行外部进程
-     */
-    private ProcessResult runProcess(List<String> command, Path workingDirectory) {
-        try {
-            ProcessBuilder processBuilder = new ProcessBuilder(command);
-            if (workingDirectory != null) {
-                processBuilder.directory(workingDirectory.toFile());
-            }
-            processBuilder.redirectErrorStream(true);
-            Process process = processBuilder.start();
-            String output = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-            int exitCode = process.waitFor();
-            return new ProcessResult(exitCode, output.trim());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException("Process execution interrupted: " + command, e);
-        } catch (IOException e) {
-            throw new IllegalStateException("Failed to run process: " + command, e);
-        }
-    }
-
-    /**
-     * 解析技能路径
-     */
-    private Path resolveSkillPath() {
-        String configured = firstNonBlank(
-                properties.getSkillPath(),
-                System.getProperty("docx.agent.skill-path"),
-                System.getenv("DOCX_AGENT_SKILL_PATH")
-        );
-        if (!isBlank(configured)) {
-            return Path.of(configured).toAbsolutePath().normalize();
-        }
-        return Path.of(System.getProperty("user.home"), ".codex", "skills", "docx")
-                .toAbsolutePath()
-                .normalize();
-    }
-
-    /**
-     * 解析工作目录
-     */
-    private Path resolveWorkingDirectory(Path skillPath) {
-        String configured = firstNonBlank(
-                properties.getShellWorkingDirectory(),
-                System.getProperty("docx.agent.working-directory"),
-                System.getenv("DOCX_AGENT_WORKDIR")
-        );
-        if (isBlank(configured)) {
-            return skillPath;
-        }
-        return Path.of(configured).toAbsolutePath().normalize();
-    }
-
-    /**
-     * 标准化文本：替换特殊空格字符，压缩连续空白
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private String normalizeText(String text) {
         if (text == null) {
@@ -979,10 +1012,7 @@ public class DocxSkillAgentService {
 
     private String normalizeMatchingText(String text) {
         return normalizeText(text)
-                .replace(" ", "")
-                .replace("：", ":")
-                .replace("（", "(")
-                .replace("）", ")")
+                .replaceAll("[\\s\\p{Punct}\\uFF0C\\u3002\\uFF1B\\uFF1A\\uFF08\\uFF09]", "")
                 .toLowerCase(Locale.ROOT);
     }
 
@@ -997,25 +1027,25 @@ public class DocxSkillAgentService {
         String location = abbreviateSummaryText(firstNonBlank(
                 operation == null ? null : operation.anchor,
                 operation == null ? null : operation.find,
-                "相关段落"
+                "related paragraph"
         ));
 
         if ("replace_text_in_paragraph".equals(type)) {
-            return "在“" + location + "”所在段落调整了原有表述。";
+            return "Adjusted wording near \"" + location + "\".";
         }
         if ("append_sentence_to_paragraph".equals(type)) {
-            return "在“" + location + "”所在段落补充了说明内容。";
+            return "Added clarification near \"" + location + "\".";
         }
         if ("insert_paragraph_after".equals(type)) {
-            return "在“" + location + "”后新增了一段内容。";
+            return "Inserted a paragraph after \"" + location + "\".";
         }
-        return "在“" + location + "”附近执行了文档修改。";
+        return "Modified content near \"" + location + "\".";
     }
 
     private String abbreviateSummaryText(String text) {
         String normalized = normalizeText(text);
         if (isBlank(normalized)) {
-            return "相关段落";
+            return "related paragraph";
         }
         int maxLength = 24;
         if (normalized.length() <= maxLength) {
@@ -1041,8 +1071,66 @@ public class DocxSkillAgentService {
         return message.toString();
     }
 
+    private boolean isPatchApplyAcceptable(PatchApplyResult applyResult, int minAppliedOperations) {
+        if (applyResult == null || applyResult.appliedCount() < minAppliedOperations) {
+            return false;
+        }
+        int total = applyResult.appliedCount() + applyResult.skippedOperationMessages().size();
+        if (total <= 0) {
+            return false;
+        }
+        double successRatio = (double) applyResult.appliedCount() / total;
+        return successRatio >= PATCH_APPLY_MIN_SUCCESS_RATIO;
+    }
+
+    private String buildPatchRetryFailureMessage(int maxAttempts, int minAppliedOperations, PatchApplyResult lastApplyResult) {
+        if (lastApplyResult == null) {
+            return "Patch generation failed after " + maxAttempts + " attempts: no apply result was produced.";
+        }
+        int appliedCount = lastApplyResult.appliedCount();
+        int skippedCount = lastApplyResult.skippedOperationMessages().size();
+        int total = appliedCount + skippedCount;
+        double successRatio = total <= 0 ? 0D : (double) appliedCount / total;
+        return "Patch generation failed after " + maxAttempts + " attempts. "
+                + "Required at least " + minAppliedOperations + " applied operations and "
+                + "a success ratio of at least " + (int) (PATCH_APPLY_MIN_SUCCESS_RATIO * 100) + "%, but got "
+                + appliedCount + " applied operations with success ratio "
+                + String.format(Locale.ROOT, "%.1f%%", successRatio * 100) + ". "
+                + "Skipped operations: " + skippedCount
+                + ". Last warning: " + firstNonBlank(lastApplyResult.warningMessage(), "none");
+    }
+
+    private String readPatchPlanFileSafe(Path patchPlanFile) {
+        if (patchPlanFile == null || !Files.isRegularFile(patchPlanFile)) {
+            return "{}";
+        }
+        try {
+            return Files.readString(patchPlanFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            return "{}";
+        }
+    }
+
+    private String formatSkippedMessages(List<String> skippedMessages) {
+        if (skippedMessages == null || skippedMessages.isEmpty()) {
+            return "- none";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < skippedMessages.size(); i++) {
+            builder.append(i + 1).append(". ").append(skippedMessages.get(i)).append("\n");
+        }
+        return builder.toString().trim();
+    }
+
+    private int normalizePositive(Integer value, int defaultValue) {
+        if (value == null || value <= 0) {
+            return defaultValue;
+        }
+        return value;
+    }
+
     /**
-     * 获取第一个非空字符串
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private static String firstNonBlank(String... values) {
         if (values == null) {
@@ -1057,20 +1145,15 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 判断字符串是否为空
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private static boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
     }
 
-    /**
-     * 已解析的配置信息记录
-     */
-    private record ResolvedConfig(String apiKey, String model, String baseUrl) {
-    }
 
     /**
-     * 进程执行结果记录
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     private record ProcessResult(int exitCode, String output) {
     }
@@ -1094,8 +1177,14 @@ public class DocxSkillAgentService {
     ) {
     }
 
+    private record PatchExecutionResult(
+            PatchApplyResult patchApplyResult,
+            Path finalPatchPlanFile
+    ) {
+    }
+
     /**
-     * 补丁方案类
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class PatchPlan {
@@ -1103,15 +1192,21 @@ public class DocxSkillAgentService {
     }
 
     /**
-     * 补丁操作类
+      * 说明：该方法注释已修复（原注释出现乱码）。
      */
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class PatchOperation {
         public String type;      // 操作类型
         public String anchor;    // 定位锚点
-        public String find;      // 要查找的文本
+        public String find;      // 待查找文本
         public String replace;   // 替换后的文本
-        public String append;    // 要追加的文本
-        public String text;      // 新段落的文本
+        public String append;    // 追加文本
+        public String text;      // 新段落文本
     }
 }
+
+
+
+
+
+

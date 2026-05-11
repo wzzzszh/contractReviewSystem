@@ -2,6 +2,8 @@ package com.szh.contractReviewSystem.model.response;
 
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 public class LoginResponse {
 
@@ -20,4 +22,6 @@ public class LoginResponse {
     private String username;
 
     private String nickname;
+
+    private Set<String> permissions;
 }

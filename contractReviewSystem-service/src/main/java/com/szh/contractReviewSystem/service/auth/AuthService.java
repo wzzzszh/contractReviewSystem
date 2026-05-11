@@ -21,10 +21,16 @@ public class AuthService {
 
     private final JwtTokenService jwtTokenService;
 
-    public AuthService(UserMapper userMapper, PasswordService passwordService, JwtTokenService jwtTokenService) {
+    private final PermissionService permissionService;
+
+    public AuthService(UserMapper userMapper,
+                       PasswordService passwordService,
+                       JwtTokenService jwtTokenService,
+                       PermissionService permissionService) {
         this.userMapper = userMapper;
         this.passwordService = passwordService;
         this.jwtTokenService = jwtTokenService;
+        this.permissionService = permissionService;
     }
 
     public LoginResponse login(LoginRequest request) {
@@ -54,6 +60,7 @@ public class AuthService {
         response.setUserId(user.getId());
         response.setUsername(user.getUsername());
         response.setNickname(user.getNickname());
+        response.setPermissions(permissionService.getUserPermissions(user.getId()));
         return response;
     }
 

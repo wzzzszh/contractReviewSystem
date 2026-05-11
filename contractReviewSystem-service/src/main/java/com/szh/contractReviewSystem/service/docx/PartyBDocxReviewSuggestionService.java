@@ -2,16 +2,16 @@ package com.szh.contractReviewSystem.service.docx;
 
 import com.szh.contractReviewSystem.agent.docx.DocxSkillAgentProperties;
 import com.szh.contractReviewSystem.agent.docx.model.DocxModifyPerspective;
-import com.szh.contractReviewSystem.config.ArkConfig;
+import com.szh.contractReviewSystem.llm.LLMService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PartyBDocxReviewSuggestionService extends AbstractDocxReviewSuggestionService {
 
     public PartyBDocxReviewSuggestionService(DocxSkillAgentProperties properties,
-                                             ArkConfig arkConfig,
+                                             LLMService llmService,
                                              LegalContractRiskReviewService legalContractRiskReviewService) {
-        super(properties, arkConfig, legalContractRiskReviewService);
+        super(properties, llmService, legalContractRiskReviewService);
     }
 
     @Override

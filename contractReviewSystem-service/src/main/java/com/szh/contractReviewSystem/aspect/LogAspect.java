@@ -11,7 +11,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 /**
  * 日志切面类 */
@@ -51,12 +50,12 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
         
         logger.info("==========================================");
-        logger.info("请求地址: {}", requestUrl);
-        logger.info("请求方式: {}", method);
-        logger.info("请求IP: {}", clientIp);
+//        logger.info("请求地址: {}", requestUrl);
+//        logger.info("请求方式: {}", method);
+//        logger.info("请求IP: {}", clientIp);
         logger.info("类名方法: {}.{}", className, methodName);
-        logger.info("请求参数: {}", Arrays.toString(args));
-        logger.info("==========================================");
+//        logger.info("请求参数: {}", Arrays.toString(args));
+//        logger.info("==========================================");
     }
     
     /**
@@ -77,7 +76,7 @@ public class LogAspect {
         long endTime = System.currentTimeMillis();
         
         logger.info("耗时: {} ms", (endTime - startTime));
-        logger.info("返回结果: {}", result);
+//        logger.info("返回结果: {}", result);
         logger.info("==========================================");
         
         return result;
