@@ -84,6 +84,8 @@ docx-agent:
   maxStdOutChars: 20000
   maxStdErrChars: 12000
   timeoutSeconds: 90
+  patchPlanMaxAttempts: 3
+  patchMinAppliedOperations: 1
 
 mybatis:
   configuration:

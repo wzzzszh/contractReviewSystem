@@ -1,5 +1,7 @@
 package com.szh.contractReviewSystem.service.review;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szh.contractReviewSystem.agent.docx.model.DocxModifyPerspective;
 import com.szh.contractReviewSystem.entity.file.FileStorageEntity;
 import com.szh.contractReviewSystem.entity.review.ReviewTaskEntity;
@@ -20,6 +22,9 @@ public class ReviewTaskService {
 
     public static final String TASK_TYPE_DOCX_REVIEW_MODIFY = "docx_review_modify";
     public static final String STATUS_PENDING = "pending";
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final TypeReference<List<String>> STRING_LIST_TYPE = new TypeReference<>() {
+    };
 
     private final ReviewTaskMapper reviewTaskMapper;
     private final FileStorageRecordService fileStorageRecordService;
@@ -51,15 +56,13 @@ public class ReviewTaskService {
         task.setProgress(0);
         task.setPerspective(DocxModifyPerspective.resolveOrDefault(request.getPerspective()).name());
         task.setUserFocus(firstNonBlank(request.getUserFocus(), request.getModificationRequirement()));
+        task.setRetryable(Boolean.FALSE);
+        task.setRetryCount(0);
+        task.setMaxRetry(3);
+        task.setSkippedOperationMessagesJson("[]");
         reviewTaskMapper.insert(task);
 
-        try {
-            reviewTaskExecutor.executeReviewTask(task.getId());
-        } catch (RuntimeException e) {
-            reviewTaskMapper.markFailed(task.getId(), "review task queue rejected submission");
-            throw new CustomException(BusinessExceptionEnum.REVIEW_FAILED,
-                    "review task queue rejected submission", e);
-        }
+        submitTaskExecution(task.getId());
         return toResponse(reviewTaskMapper.selectById(task.getId()));
     }
 
@@ -77,6 +80,39 @@ public class ReviewTaskService {
         return reviewTaskMapper.selectByUserId(userId).stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    public ReviewTaskResponse retryOwnedTask(Long id) {
+        Long userId = UserContextHolder.requireUserId();
+        ReviewTaskEntity task = reviewTaskMapper.selectOwnedById(id, userId);
+        if (task == null) {
+            throw new CustomException(BusinessExceptionEnum.DATA_NOT_FOUND, "review task not found");
+        }
+        if (!Boolean.TRUE.equals(task.getRetryable())
+                || !"failed".equalsIgnoreCase(task.getStatus())
+                || safeInt(task.getRetryCount()) >= safeInt(task.getMaxRetry(), 3)) {
+            throw new CustomException(BusinessExceptionEnum.REVIEW_PARAMETER_ERROR, "task is not retryable");
+        }
+
+        int updated = reviewTaskMapper.retryTaskByOwner(id, userId);
+        if (updated == 0) {
+            throw new CustomException(BusinessExceptionEnum.REVIEW_PARAMETER_ERROR,
+                    "task is not retryable or has already been handled");
+        }
+
+        submitTaskExecution(id);
+        return toResponse(reviewTaskMapper.selectOwnedById(id, userId));
+    }
+
+    private void submitTaskExecution(Long taskId) {
+        try {
+            reviewTaskExecutor.executeReviewTask(taskId);
+        } catch (RuntimeException e) {
+            reviewTaskMapper.markFailed(taskId, "review task queue rejected submission", true,
+                    "QUEUE_REJECTED", null, null, null);
+            throw new CustomException(BusinessExceptionEnum.REVIEW_FAILED,
+                    "review task queue rejected submission", e);
+        }
     }
 
     private String normalizeTaskType(String taskType) {
@@ -112,6 +148,8 @@ public class ReviewTaskService {
         if (task == null) {
             return null;
         }
+        task.setSkippedOperationMessages(parseJsonList(task.getSkippedOperationMessagesJson()));
+
         ReviewTaskResponse response = new ReviewTaskResponse();
         response.setId(task.getId());
         response.setSourceFileId(task.getSourceFileId());
@@ -123,9 +161,35 @@ public class ReviewTaskService {
         response.setUserFocus(task.getUserFocus());
         response.setRiskReport(task.getRiskReport());
         response.setGeneratedRequirement(task.getGeneratedRequirement());
+        response.setAppliedOperationCount(task.getAppliedOperationCount());
+        response.setSkippedOperationCount(task.getSkippedOperationCount());
+        response.setSkippedOperationMessages(task.getSkippedOperationMessages());
+        response.setRetryable(task.getRetryable());
+        response.setRetryCount(task.getRetryCount());
+        response.setMaxRetry(task.getMaxRetry());
+        response.setLastErrorCode(task.getLastErrorCode());
         response.setErrorMessage(task.getErrorMessage());
         response.setCreateTime(task.getCreateTime());
         response.setUpdateTime(task.getUpdateTime());
         return response;
+    }
+
+    private List<String> parseJsonList(String json) {
+        try {
+            if (json == null || json.trim().isEmpty()) {
+                return List.of();
+            }
+            return OBJECT_MAPPER.readValue(json, STRING_LIST_TYPE);
+        } catch (Exception e) {
+            return List.of();
+        }
+    }
+
+    private int safeInt(Integer value) {
+        return safeInt(value, 0);
+    }
+
+    private int safeInt(Integer value, int defaultValue) {
+        return value == null ? defaultValue : value;
     }
 }

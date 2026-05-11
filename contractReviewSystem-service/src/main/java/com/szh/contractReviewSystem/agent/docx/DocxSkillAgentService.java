@@ -34,6 +34,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -48,6 +49,7 @@ public class DocxSkillAgentService {
 
     private static final String WORD_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
     private static final int MAX_SOURCE_TEXT_LENGTH = 16000;
+    private static final double PATCH_APPLY_MIN_SUCCESS_RATIO = 0.9D;
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private final DocxSkillAgentProperties properties;
@@ -123,14 +125,15 @@ public class DocxSkillAgentService {
             // 4. 从 document.xml 抽取段落文本，作为生成补丁计划的定位依据。
             String sourceText = extractParagraphTextFromDocumentXml(documentXml);
 
-            // 5. 让大模型把“修改要求”转成 JSON 补丁计划。
-            PatchPlan patchPlan = generatePatchPlan(sourceText, modificationRequirement.trim());
-
-            // 6. 保存补丁计划，方便排查每次生成了哪些操作。
-            savePatchPlan(patchPlanFile, patchPlan);
-
-            // 7. Java 根据补丁计划修改 document.xml，避免让模型直接操作文件。
-            PatchApplyResult patchApplyResult = applyPatchPlan(documentXml, patchPlan);
+            // 5. 按“生成-应用-失败反馈”循环尝试补丁计划。
+            PatchExecutionResult patchExecutionResult = applyPatchPlanWithRetry(
+                    runDirectory,
+                    documentXml,
+                    patchPlanFile,
+                    sourceText,
+                    modificationRequirement.trim()
+            );
+            PatchApplyResult patchApplyResult = patchExecutionResult.patchApplyResult();
 
             // 8. 重新打包成 DOCX，输出最终修订文档。
             packDocx(unpackedDirectory, normalizedInput, normalizedOutput);
@@ -138,8 +141,8 @@ public class DocxSkillAgentService {
             return new ModifyDocumentResult(
                     normalizedOutput,
                     runDirectory,
-                    patchPlanFile,
-                    buildResultMessage(normalizedOutput, patchPlanFile, patchApplyResult),
+                    patchExecutionResult.finalPatchPlanFile(),
+                    buildResultMessage(normalizedOutput, patchExecutionResult.finalPatchPlanFile(), patchApplyResult),
                     patchApplyResult.appliedCount(),
                     patchApplyResult.skippedOperationMessages().size(),
                     patchApplyResult.skippedOperationMessages(),
@@ -270,6 +273,20 @@ public class DocxSkillAgentService {
      * 调用 LLM 生成补丁方案
      */
     private PatchPlan generatePatchPlan(String sourceText, String modificationRequirement) {
+        return generatePatchPlanInternal(sourceText, modificationRequirement, null, null);
+    }
+
+    private PatchPlan generatePatchPlanWithFeedback(String sourceText,
+                                                    String modificationRequirement,
+                                                    Path previousPatchPlanFile,
+                                                    PatchApplyResult previousApplyResult) {
+        return generatePatchPlanInternal(sourceText, modificationRequirement, previousPatchPlanFile, previousApplyResult);
+    }
+
+    private PatchPlan generatePatchPlanInternal(String sourceText,
+                                                String modificationRequirement,
+                                                Path previousPatchPlanFile,
+                                                PatchApplyResult previousApplyResult) {
         // 解析配置
         ResolvedConfig config = resolveConfig();
         // 创建 ArkService 实例
@@ -280,15 +297,22 @@ public class DocxSkillAgentService {
         try {
             // 创建一个消息列表，包含系统提示词和用户提示词
             List<ChatMessage> messages = new ArrayList<>();
+            boolean hasFeedback = previousPatchPlanFile != null && previousApplyResult != null;
+            String systemPrompt = hasFeedback
+                    ? buildPatchPlanRetrySystemPrompt()
+                    : buildPatchPlanSystemPromptFixed();
+            String userPrompt = hasFeedback
+                    ? buildPatchPlanRetryUserPrompt(sourceText, modificationRequirement, previousPatchPlanFile, previousApplyResult)
+                    : buildPatchPlanUserPromptFixed(sourceText, modificationRequirement);
             // 添加系统提示词
             messages.add(ChatMessage.builder()
                     .role(ChatMessageRole.SYSTEM)
-                    .content(buildPatchPlanSystemPromptFixed())
+                    .content(systemPrompt)
             // 添加用户提示词
                     .build());
             messages.add(ChatMessage.builder()
                     .role(ChatMessageRole.USER)
-                    .content(buildPatchPlanUserPromptFixed(sourceText, modificationRequirement))
+                    .content(userPrompt)
                     .build());
             // 创建聊天完成请求
             ChatCompletionRequest request = ChatCompletionRequest.builder()
@@ -378,12 +402,109 @@ public class DocxSkillAgentService {
                 """.formatted(modificationRequirement, sourceText);
     }
 
+    private String buildPatchPlanRetrySystemPrompt() {
+        return """
+                You are fixing a previously failed JSON patch plan for an existing Chinese contract.
+                Return JSON only. No markdown. No explanation.
+
+                Allowed operation types:
+                1. replace_text_in_paragraph
+                   fields: type, anchor, find, replace
+                2. append_sentence_to_paragraph
+                   fields: type, anchor, append
+                3. insert_paragraph_after
+                   fields: type, anchor, text
+
+                Hard rules:
+                1. Every anchor must be an exact fragment from source text.
+                2. Remove or rewrite operations that previously failed.
+                3. Keep edits minimal and executable.
+                4. Return at most 8 operations.
+                5. Keep output schema exactly as {"operations":[...]}.
+                """;
+    }
+
+    private String buildPatchPlanRetryUserPrompt(String sourceText,
+                                                 String modificationRequirement,
+                                                 Path previousPatchPlanFile,
+                                                 PatchApplyResult previousApplyResult) {
+        String previousPlanJson = readPatchPlanFileSafe(previousPatchPlanFile);
+        String skipDetails = formatSkippedMessages(previousApplyResult == null
+                ? Collections.emptyList()
+                : previousApplyResult.skippedOperationMessages());
+        int appliedCount = previousApplyResult == null ? 0 : previousApplyResult.appliedCount();
+        return """
+                Modification requirements:
+                %s
+
+                Original contract text:
+                %s
+
+                Previous patch plan JSON:
+                %s
+
+                Previous apply result:
+                applied_count=%d
+                skipped_messages:
+                %s
+
+                Please return a repaired patch plan JSON only.
+                """.formatted(
+                modificationRequirement,
+                sourceText,
+                previousPlanJson,
+                appliedCount,
+                skipDetails
+        );
+    }
+
     /**
      * 保存补丁方案到 JSON 文件
      */
     private void savePatchPlan(Path patchPlanFile, PatchPlan patchPlan) throws IOException {
         Files.createDirectories(patchPlanFile.getParent());
         OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(patchPlanFile.toFile(), patchPlan);
+    }
+
+    private PatchExecutionResult applyPatchPlanWithRetry(Path runDirectory,
+                                                         Path documentXml,
+                                                         Path finalPatchPlanFile,
+                                                         String sourceText,
+                                                         String modificationRequirement) throws IOException {
+        int maxAttempts = normalizePositive(properties.getPatchPlanMaxAttempts(), 3);
+        int minAppliedOperations = normalizePositive(properties.getPatchMinAppliedOperations(), 1);
+
+        Path attemptsDirectory = runDirectory.resolve("patch-plan-attempts");
+        Path baselineDocumentXml = runDirectory.resolve("baseline-document.xml");
+        Files.copy(documentXml, baselineDocumentXml, StandardCopyOption.REPLACE_EXISTING);
+
+        PatchApplyResult lastApplyResult = null;
+        Path previousPatchPlanAttemptFile = null;
+
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            Files.copy(baselineDocumentXml, documentXml, StandardCopyOption.REPLACE_EXISTING);
+
+            PatchPlan patchPlan = attempt == 1
+                    ? generatePatchPlan(sourceText, modificationRequirement)
+                    : generatePatchPlanWithFeedback(sourceText, modificationRequirement, previousPatchPlanAttemptFile, lastApplyResult);
+
+            Path attemptPlanFile = attemptsDirectory.resolve("patch-plan-attempt-" + attempt + ".json");
+            savePatchPlan(attemptPlanFile, patchPlan);
+
+            PatchApplyResult applyResult = applyPatchPlan(documentXml, patchPlan);
+            lastApplyResult = applyResult;
+            previousPatchPlanAttemptFile = attemptPlanFile;
+
+            if (isPatchApplyAcceptable(applyResult, minAppliedOperations)) {
+                Files.copy(attemptPlanFile, finalPatchPlanFile, StandardCopyOption.REPLACE_EXISTING);
+                return new PatchExecutionResult(applyResult, finalPatchPlanFile);
+            }
+        }
+
+        if (previousPatchPlanAttemptFile != null) {
+            Files.copy(previousPatchPlanAttemptFile, finalPatchPlanFile, StandardCopyOption.REPLACE_EXISTING);
+        }
+        throw new IllegalStateException(buildPatchRetryFailureMessage(maxAttempts, minAppliedOperations, lastApplyResult));
     }
 
     /**
@@ -1041,6 +1162,64 @@ public class DocxSkillAgentService {
         return message.toString();
     }
 
+    private boolean isPatchApplyAcceptable(PatchApplyResult applyResult, int minAppliedOperations) {
+        if (applyResult == null || applyResult.appliedCount() < minAppliedOperations) {
+            return false;
+        }
+        int total = applyResult.appliedCount() + applyResult.skippedOperationMessages().size();
+        if (total <= 0) {
+            return false;
+        }
+        double successRatio = (double) applyResult.appliedCount() / total;
+        return successRatio >= PATCH_APPLY_MIN_SUCCESS_RATIO;
+    }
+
+    private String buildPatchRetryFailureMessage(int maxAttempts, int minAppliedOperations, PatchApplyResult lastApplyResult) {
+        if (lastApplyResult == null) {
+            return "Patch generation failed after " + maxAttempts + " attempts: no apply result was produced.";
+        }
+        int appliedCount = lastApplyResult.appliedCount();
+        int skippedCount = lastApplyResult.skippedOperationMessages().size();
+        int total = appliedCount + skippedCount;
+        double successRatio = total <= 0 ? 0D : (double) appliedCount / total;
+        return "Patch generation failed after " + maxAttempts + " attempts. "
+                + "Required at least " + minAppliedOperations + " applied operations and "
+                + "a success ratio of at least " + (int) (PATCH_APPLY_MIN_SUCCESS_RATIO * 100) + "%, but got "
+                + appliedCount + " applied operations with success ratio "
+                + String.format(Locale.ROOT, "%.1f%%", successRatio * 100) + ". "
+                + "Skipped operations: " + skippedCount
+                + ". Last warning: " + firstNonBlank(lastApplyResult.warningMessage(), "none");
+    }
+
+    private String readPatchPlanFileSafe(Path patchPlanFile) {
+        if (patchPlanFile == null || !Files.isRegularFile(patchPlanFile)) {
+            return "{}";
+        }
+        try {
+            return Files.readString(patchPlanFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            return "{}";
+        }
+    }
+
+    private String formatSkippedMessages(List<String> skippedMessages) {
+        if (skippedMessages == null || skippedMessages.isEmpty()) {
+            return "- none";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < skippedMessages.size(); i++) {
+            builder.append(i + 1).append(". ").append(skippedMessages.get(i)).append("\n");
+        }
+        return builder.toString().trim();
+    }
+
+    private int normalizePositive(Integer value, int defaultValue) {
+        if (value == null || value <= 0) {
+            return defaultValue;
+        }
+        return value;
+    }
+
     /**
      * 获取第一个非空字符串
      */
@@ -1091,6 +1270,12 @@ public class DocxSkillAgentService {
             int appliedCount,
             List<String> skippedOperationMessages,
             String warningMessage
+    ) {
+    }
+
+    private record PatchExecutionResult(
+            PatchApplyResult patchApplyResult,
+            Path finalPatchPlanFile
     ) {
     }
 

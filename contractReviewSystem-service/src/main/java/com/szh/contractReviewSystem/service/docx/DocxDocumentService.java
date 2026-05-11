@@ -47,7 +47,13 @@ public class DocxDocumentService {
     }
 
     public DocxModifyResponse modifyDocument(DocxModifyRequest request) {
+        return modifyDocument(request, ReviewProgressReporter.NOOP);
+    }
+
+    public DocxModifyResponse modifyDocument(DocxModifyRequest request, ReviewProgressReporter progressReporter) {
+        ReviewProgressReporter reporter = progressReporter == null ? ReviewProgressReporter.NOOP : progressReporter;
         // 1. 解析并校验输入/输出路径，确保只处理 DOCX 文件。
+        reporter.updateProgress(15);
         Path inputPath = resolveDocxPath(request.getInputPath(), "inputPath");
         Path outputPath = resolveOutputPath(request, inputPath);
 
@@ -59,12 +65,14 @@ public class DocxDocumentService {
 
         // 4. 先生成“风险提示报告”，再基于风险提示报告生成可执行的修改要求。
         DocxReviewSuggestionResult suggestionResult = getSuggestionService(perspective)
-                .generateModificationRequirement(inputPath, userFocus);
+                .generateModificationRequirement(inputPath, userFocus, reporter);
         String generatedRequirement = suggestionResult.modificationRequirement();
 
         // 5. 将修改要求交给 DOCX 补丁管线，真正修改 Word 文档。
+        reporter.updateProgress(65);
         DocxSkillAgentService.ModifyDocumentResult modifyResult =
                 docxSkillAgentService.modifyDocument(inputPath, outputPath, generatedRequirement);
+        reporter.updateProgress(85);
         registerAgentWorkDirectory(modifyResult.workDirectory());
 
         // 6. 返回修改结果，同时把风险提示和最终修改要求回传，方便前端展示和排查。

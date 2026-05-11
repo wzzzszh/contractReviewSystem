@@ -36,13 +36,24 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
 
     @Override
     public DocxReviewSuggestionResult generateModificationRequirement(Path inputPath, String userFocus) {
+        return generateModificationRequirement(inputPath, userFocus, ReviewProgressReporter.NOOP);
+    }
+
+    @Override
+    public DocxReviewSuggestionResult generateModificationRequirement(Path inputPath,
+                                                                      String userFocus,
+                                                                      ReviewProgressReporter progressReporter) {
+        ReviewProgressReporter reporter = progressReporter == null ? ReviewProgressReporter.NOOP : progressReporter;
         // 1. 从 DOCX 中抽取纯文本，供风险审查和修改要求生成共同使用。
+        reporter.updateProgress(20);
         String contractText = extractContractText(inputPath);
 
         // 2. 先按 .trae 法律合同风险技能生成结构化风险提示。
+        reporter.updateProgress(35);
         String riskReviewReport = legalContractRiskReviewService.generateRiskReview(contractText, userFocus);
 
         // 3. 再把风险提示、合同原文、用户关注点一起交给大模型，生成可执行修改要求。
+        reporter.updateProgress(50);
         ResolvedConfig config = resolveConfig();
         ArkService arkService = ArkService.builder()
                 .baseUrl(config.baseUrl())
@@ -79,6 +90,7 @@ public abstract class AbstractDocxReviewSuggestionService implements DocxReviewS
             }
 
             // 4. 同时返回风险提示报告和最终修改要求，后续补丁管线只使用修改要求。
+            reporter.updateProgress(60);
             return new DocxReviewSuggestionResult(riskReviewReport, requirement);
         } finally {
             arkService.shutdownExecutor();

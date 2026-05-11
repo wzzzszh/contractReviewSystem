@@ -45,4 +45,11 @@ public class ReviewTaskController extends BaseController {
     public Result<List<ReviewTaskResponse>> listTasks() {
         return success(reviewTaskService.listOwnedTasks());
     }
+
+    @RequiresPermissions("review:modify")
+    @PostMapping("/{id}/retry")
+    public Result<ReviewTaskResponse> retryTask(
+            @PathVariable @NotNull(message = "task id must not be null") Long id) {
+        return success("review task retried", reviewTaskService.retryOwnedTask(id));
+    }
 }

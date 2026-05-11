@@ -9,4 +9,8 @@ public interface DocxReviewSuggestionService {
     DocxModifyPerspective getPerspective();
 
     DocxReviewSuggestionResult generateModificationRequirement(Path inputPath, String userFocus);
+
+    DocxReviewSuggestionResult generateModificationRequirement(Path inputPath,
+                                                               String userFocus,
+                                                               ReviewProgressReporter progressReporter);
 }

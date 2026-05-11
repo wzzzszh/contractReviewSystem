@@ -3,6 +3,7 @@ package com.szh.contractReviewSystem.entity.review;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class ReviewTaskEntity {
@@ -28,6 +29,22 @@ public class ReviewTaskEntity {
     private String riskReport;
 
     private String generatedRequirement;
+
+    private Integer appliedOperationCount;
+
+    private Integer skippedOperationCount;
+
+    private String skippedOperationMessagesJson;
+
+    private List<String> skippedOperationMessages;
+
+    private Boolean retryable;
+
+    private Integer retryCount;
+
+    private Integer maxRetry;
+
+    private String lastErrorCode;
 
     private String errorMessage;
 
